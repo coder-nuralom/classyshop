@@ -6,12 +6,15 @@ import { FaStar } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart2 } from "react-icons/bs";
-const ProductCard = () => {
-  const offerEndDate = new Date(2026, 0, 10, 23, 59, 59);
+const ProductCard = ({ product }) => {
+  if (!product) return null;
+  const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
 
   const [timeLeft, setTimeLeft] = useState(null);
 
   const calculateTimeLeft = () => {
+    if (!offerEndDate) return null;
+
     const difference = offerEndDate - new Date();
 
     if (difference > 0) {
@@ -27,19 +30,21 @@ const ProductCard = () => {
   };
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setTimeLeft(calculateTimeLeft());
-    }, 1000);
+    const update = () => setTimeLeft(calculateTimeLeft());
+
+    update();
+
+    const timer = setInterval(update, 1000);
 
     return () => clearInterval(timer);
-  }, []);
+  }, [product?.dealEnd]);
 
   return (
-    <div className="shadow-sm border border-black/6 bg-white rounded-lg group">
-      <div className="max-[460px]:h-48 sm:h-62 md:h-56.5 overflow-hidden rounded-tr-lg rounded-tl-lg relative">
-        <Link to={"/product/1"}>
+    <div className="shadow-sm border border-black/6 bg-white rounded-lg group h-full flex flex-col">
+      <div className="h-62 max-[460px]:h-50  overflow-hidden rounded-tr-lg rounded-tl-lg relative">
+        <Link to={`/product/${product.id}`}>
           <img
-            src={product1}
+            src={product.thumbnail}
             alt=""
             className="rounded-tr-lg rounded-tl-lg w-full h-full hover:scale-105 duration-300"
           />
@@ -47,11 +52,14 @@ const ProductCard = () => {
 
         <div className="absolute top-2 left-2 flex flex-col items-start gap-y-1">
           <span className="bg-[var(--bg-discount)] text-[13px] px-2 py-0.5 font-medium text-white rounded-sm">
-            -6%
+            -{product.discount}%
           </span>
-          <span className="bg-[var(--bg-new)] text-[11px] px-2 py-0.5 font-medium text-white rounded-sm uppercase opacity-0 group-hover:opacity-100 duration-300">
-            new
-          </span>
+
+          {product.isNew && (
+            <span className="bg-[var(--bg-new)] text-[11px] px-2 py-0.5 font-medium text-white rounded-sm uppercase opacity-0 group-hover:opacity-100 duration-300">
+              new
+            </span>
+          )}
         </div>
 
         <div className="absolute top-[15px] -right-[25%] opacity-0 group-hover:right-[10px] group-hover:opacity-100 duration-400 ease-in-out flex flex-col bg-white rounded-md px-1 shadow-md">
@@ -76,10 +84,14 @@ const ProductCard = () => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="text-center w-[42px] h-[42px] bg-[#fef2f2] rounded-[5px] py-[2px] px-[2px]"
+                className="text-center w-[42px] max-[450px]:w-[30px] h-[42px] max-[450px]:h-[35px] bg-[#fef2f2] rounded-[5px] py-[2px] px-[2px]"
               >
-                <p className="text-[#da3f3f] text-sm font-semibold">{item.value}</p>
-                <p className="text-[#da3f3f] text-[12px] font-medium">{item.label}</p>
+                <p className="text-[#da3f3f] text-sm max-[450px]:text-[12px] font-semibold">
+                  {item.value}
+                </p>
+                <p className="text-[#da3f3f] text-[12px] max-[450px]:text-[10px] font-medium">
+                  {item.label}
+                </p>
               </div>
             ))}
           </div>
@@ -88,26 +100,30 @@ const ProductCard = () => {
       <div className="px-3 py-4">
         <h6>
           <Link className="text-[13px] font-medium hover:text-[var(--bg-orange)] duration-200">
-            Fashion
+            {product.category}
           </Link>
         </h6>
         <h3 className="text-sm mt-1.5 font-medium text-black/90">
           <Link className="hover:text-[var(--bg-orange)] duration-200 line-clamp-2">
-            MVMT Chrono Analog Black Dial Men Watch
+            {product.title}
           </Link>
         </h3>
         <div className="flex items-center gap-0.5 mt-2">
           {[...Array(5)].map((_, index) => (
             <FaStar
               key={index}
-              className={`${index < Math.floor(4) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
+              className={`${index < Math.floor(product.rating) ? "fill-yellow-400 text-yellow-400" : "text-gray-300"}`}
             />
           ))}
         </div>
 
         <div className="flex items-center gap-x-2 mt-1.5">
-          <span className="line-through text-gray-500 text-sm font-medium">$58.00</span>
-          <span className="text-[var(--bg-orange)] text-[16px] font-semibold"> $44.00</span>
+          <span className="line-through text-gray-500 text-sm font-medium">
+            ${product.oldPrice.toFixed(2)}
+          </span>
+          <span className="text-[var(--bg-orange)] text-[16px] font-semibold">
+            ${product.price.toFixed(2)}
+          </span>
         </div>
       </div>
     </div>

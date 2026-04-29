@@ -8,7 +8,7 @@ import ProductCard from "./ProductCard";
 import { IoIosArrowBack } from "react-icons/io";
 import { IoIosArrowForward } from "react-icons/io";
 
-const ProductsSlider = ({ title }) => {
+const ProductsSlider = ({ title, products }) => {
   const prevRef = useRef(null);
   const nextRef = useRef(null);
   return (
@@ -56,9 +56,9 @@ const ProductsSlider = ({ title }) => {
         }}
         modules={[Navigation]}
       >
-        {[...Array(20)].map((_, index) => (
-          <SwiperSlide key={index} className="overflow-visible my-4">
-            <ProductCard />
+        {products.map((item, index) => (
+          <SwiperSlide key={index} className="overflow-visible my-4 !h-auto">
+            <ProductCard product={item} />
           </SwiperSlide>
         ))}
       </Swiper>

@@ -7,7 +7,7 @@ import { BsCart2 } from "react-icons/bs";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
 
-const ProductMeta = () => {
+const ProductMeta = ({ product }) => {
   const sizes = ["S", "M", "L", "XL"];
   const [seletedSize, setSeletedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -20,9 +20,9 @@ const ProductMeta = () => {
   };
   return (
     <div>
-      <Link className="text-[var(--bg-orange)] text-sm font-medium">Fashion</Link>
+      <Link className="text-[var(--bg-orange)] text-sm font-medium">{product.category}</Link>
       <h1 className="text-[23px] max-[370px]:text-xl text-black font-medium capitalize mt-1 mb-3">
-        MVMT Chrono Analog Black Dial Men Watch
+        {product.title}
       </h1>
       <div className="flex flex-wrap items-center gap-3">
         <span className="text-[var(--text-gray)] text-sm">
@@ -42,11 +42,15 @@ const ProductMeta = () => {
       </div>
       <div className="flex flex-wrap items-center gap-x-5 gap-y-1 mt-4 mb-4">
         <div className="flex items-end gap-2">
-          <span className="line-through text-gray-500 text-lg font-medium">$58.00</span>
-          <span className="text-[var(--bg-orange)] text-xl font-semibold"> $44.00</span>
+          <span className="line-through text-gray-500 text-lg font-medium">
+            ${product.oldPrice.toFixed(2)}
+          </span>
+          <span className="text-[var(--bg-orange)] text-xl font-semibold">
+            ${product.price.toFixed(2)}
+          </span>
         </div>
         <span className="text-sm font-medium text-[var(--text-gray)]">
-          Available in Stock: <span className="text-green-600">147 items</span>
+          Available in Stock: <span className="text-green-600">{product.stock} items</span>
         </span>
       </div>
       <span className="bg-green-100 text-green-500 px-3 py-1.5 rounded-full text-xs uppercase font-medium">

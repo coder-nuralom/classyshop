@@ -11,8 +11,8 @@ import { FaAngleDown, FaAngleUp, FaAngleLeft, FaAngleRight } from "react-icons/f
 import img1 from "../assets/oval-blue-charm-bracelet-2.webp";
 import img2 from "../assets/product1.webp";
 
-const ProductZoom = () => {
-  const images = [img2, img1, img2, img1, img2, img1];
+const ProductZoom = ({ product }) => {
+  const images = product.gallery;
   const [thumbsSwiper, setThumbsSwiper] = useState(null);
   const [isVertical, setIsVertical] = useState(false);
 
