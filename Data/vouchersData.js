@@ -1,0 +1,38 @@
+export const vouchers = [
+  {
+    id: 1,
+    code: "SAVE20",
+    discount: "20% off",
+    description: "Valid on all products",
+    expiry: "2024-12-31",
+    status: "active",
+    minPurchase: "$50",
+  },
+  {
+    id: 2,
+    code: "WELCOME10",
+    discount: "$10 off",
+    description: "New user welcome voucher",
+    expiry: "2024-11-15",
+    status: "active",
+    minPurchase: "$25",
+  },
+  {
+    id: 3,
+    code: "FLASH50",
+    discount: "50% off",
+    description: "Flash sale voucher",
+    expiry: "2024-10-30",
+    status: "expired",
+    minPurchase: "$100",
+  },
+  {
+    id: 4,
+    code: "FREESHIP",
+    discount: "Free Shipping",
+    description: "Free delivery on orders",
+    expiry: "2024-12-15",
+    status: "used",
+    minPurchase: "$75",
+  },
+];
