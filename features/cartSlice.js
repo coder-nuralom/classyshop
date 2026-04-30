@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 
 const initialState = {
   isCartOpen: false,
@@ -18,13 +19,16 @@ export const cartSlice = createSlice({
 
       if (existingItem) {
         existingItem.quantity += 1;
+        toast.success("Item Added to Cart.");
       } else {
         state.cart.push({ ...action.payload, quantity: 1 });
+        toast.success("Item Added to Cart.");
       }
     },
 
     removeFromCart: (state, action) => {
-      state.cart = cart.filter((item) => item.id !== action.payload);
+      state.cart = state.cart.filter((item) => item.id !== action.payload);
+      toast.warning("Item removed from cart");
     },
 
     updateQuantity: (state, action) => {

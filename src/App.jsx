@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer, Bounce } from "react-toastify";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import Navbar from "./components/Navbar";
@@ -29,6 +30,19 @@ const App = () => {
   const showLogoutModal = useSelector((state) => state.logoutModal.showLogoutModal);
   return (
     <div className="flex flex-col min-h-screen">
+      <ToastContainer
+        position="top-right"
+        autoClose={1000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="light"
+        transition={Bounce}
+      />
       <HeaderTopStrip />
       <Header />
       <Navbar />

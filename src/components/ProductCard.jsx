@@ -6,7 +6,10 @@ import { FaStar } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
 import { BsCart2 } from "react-icons/bs";
+import { useDispatch } from "react-redux";
+import { addToCart } from "../../features/cartSlice";
 const ProductCard = ({ product }) => {
+  const dispatch = useDispatch();
   if (!product) return null;
   const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
 
@@ -41,7 +44,7 @@ const ProductCard = ({ product }) => {
 
   return (
     <div className="shadow-sm border border-black/6 bg-white rounded-lg group h-full flex flex-col">
-      <div className="h-62 max-[460px]:h-50  overflow-hidden rounded-tr-lg rounded-tl-lg relative">
+      <div className="h-60 max-[460px]:h-50  overflow-hidden rounded-tr-lg rounded-tl-lg relative">
         <Link to={`/product/${product.id}`}>
           <img
             src={product.thumbnail}
@@ -69,7 +72,10 @@ const ProductCard = ({ product }) => {
           <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
             <IoGitCompareOutline />
           </button>
-          <button className="text-xl font-black w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
+          <button
+            onClick={() => dispatch(addToCart(product))}
+            className="text-xl font-black w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200"
+          >
             <BsCart2 />
           </button>
         </div>

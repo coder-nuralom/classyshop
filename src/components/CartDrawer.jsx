@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { RiShoppingBag4Line } from "react-icons/ri";
 import { RxCross2 } from "react-icons/rx";
 import { GoCreditCard } from "react-icons/go";
@@ -6,12 +6,16 @@ import DrawerCartItem from "./DrawerCartItem";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleCart } from "../../features/cartSlice";
 import { useNavigate } from "react-router-dom";
+import { FiShoppingBag } from "react-icons/fi";
 
 const CartDrawer = () => {
-  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const dispatch = useDispatch();
-
+  const cartItems = useSelector((state) => state.cart.cart);
+  const isCartOpen = useSelector((state) => state.cart.isCartOpen);
   const navigate = useNavigate();
+
+  const totalPrice = cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
+  const [shippingCost, setShippingCost] = useState(100);
   return (
     <div
       onClick={() => dispatch(toggleCart())}
@@ -37,54 +41,81 @@ const CartDrawer = () => {
 
         {/* Cart Items */}
         <div className="flex-1 px-4 py-6 overflow-y-auto">
-          <div className="all_items space-y-3">
-            {[...Array(10)].map((_, index) => (
-              <DrawerCartItem key={index} />
-            ))}
-          </div>
+          {cartItems.length > 0 ? (
+            <div className="all_items space-y-3">
+              {cartItems.map((item, index) => (
+                <DrawerCartItem singleItem={item} key={index} />
+              ))}
+            </div>
+          ) : (
+            <div className="h-full flex flex-col items-center justify-center">
+              <FiShoppingBag className="text-6xl" />
+              <p className="text-lg my-2 mt-5 font-medium">Your cart is empty now</p>
+              <span className="text-sm">Add some products to get started</span>
+            </div>
+          )}
         </div>
 
         {/* Cart Footer */}
         <div className="px-4 py-5 border-t border-gray-200 bg-gray-50">
-          <div className=" border-b border-black/15 pb-3 space-y-1.5">
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-900">Sub Total</span>
-              <span className="text-base font-semibold text-[var(--bg-orange)]">10000$</span>
-            </div>
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-900">Shipping</span>
-              <span className="text-base font-semibold text-[var(--bg-orange)]">100$</span>
-            </div>
-          </div>
+          {cartItems.length > 0 ? (
+            <>
+              <div className=" border-b border-black/15 pb-3 space-y-1.5">
+                <div className="flex justify-between items-center">
+                  <span className="text-base font-medium text-gray-900">Sub Total</span>
+                  <span className="text-base font-semibold text-[var(--bg-orange)]">
+                    {totalPrice.toFixed(2)}$
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-base font-medium text-gray-900">Shipping</span>
+                  <span className="text-base font-semibold text-[var(--bg-orange)]">
+                    {shippingCost}$
+                  </span>
+                </div>
+              </div>
 
-          <div className="mt-2 mb-8">
-            <div className="flex justify-between items-center">
-              <span className="text-base font-medium text-gray-900 capitalize">total</span>
-              <span className="text-base font-semibold text-[var(--bg-orange)]">10100$</span>
-            </div>
-          </div>
+              <div className="mt-2 mb-8">
+                <div className="flex justify-between items-center">
+                  <span className="text-base font-medium text-gray-900 capitalize">total</span>
+                  <span className="text-base font-semibold text-[var(--bg-orange)]">
+                    {totalPrice + shippingCost}$
+                  </span>
+                </div>
+              </div>
 
-          <div className="flex items-center gap-3">
-            <button
-              onClick={() => {
-                navigate("/checkout");
-                dispatch(toggleCart());
-              }}
-              className="w-full bg-[var(--bg-orange)] px-3 text-white py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 cursor-pointer"
-            >
-              <GoCreditCard className="w-5" />
-              <span>Checkout</span>
-            </button>
-            <button
-              onClick={() => {
-                navigate("/cart");
-                dispatch(toggleCart());
-              }}
-              className="w-full bg-[var(--bg-orange)] px-3 text-white py-2.5 rounded-lg font-medium flex items-center justify-center cursor-pointer"
-            >
-              View Cart
-            </button>
-          </div>
+              <div className="flex items-center gap-3">
+                <button
+                  onClick={() => {
+                    navigate("/checkout");
+                    dispatch(toggleCart());
+                  }}
+                  className="w-full bg-[var(--bg-orange)] px-3 text-white py-2.5 rounded-lg font-medium flex items-center justify-center space-x-2 cursor-pointer"
+                >
+                  <GoCreditCard className="w-5" />
+                  <span>Checkout</span>
+                </button>
+                <button
+                  onClick={() => {
+                    navigate("/cart");
+                    dispatch(toggleCart());
+                  }}
+                  className="w-full bg-[var(--bg-orange)] px-3 text-white py-2.5 rounded-lg font-medium flex items-center justify-center cursor-pointer"
+                >
+                  View Cart
+                </button>
+              </div>
+            </>
+          ) : (
+            <div className="flex items-center gap-3">
+              <button
+                onClick={() => dispatch(toggleCart())}
+                className="w-full bg-[var(--bg-orange)] px-3 text-white py-2.5 rounded-lg font-medium flex items-center justify-center cursor-pointer"
+              >
+                Continue Shopping
+              </button>
+            </div>
+          )}
         </div>
       </div>
     </div>

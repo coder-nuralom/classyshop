@@ -82,10 +82,14 @@ const ProductCardListView = ({ product }) => {
             ].map((item, index) => (
               <div
                 key={index}
-                className="text-center w-[42px] h-[42px] bg-[#fef2f2] rounded-[5px] py-[2px] px-[2px]"
+                className="text-center w-[42px] max-[450px]:w-[30px] h-[42px] max-[450px]:h-[35px] bg-[#fef2f2] rounded-[5px] py-[2px] px-[2px]"
               >
-                <p className="text-[#da3f3f] text-sm font-semibold">{item.value}</p>
-                <p className="text-[#da3f3f] text-[12px] font-medium">{item.label}</p>
+                <p className="text-[#da3f3f] text-sm max-[450px]:text-[12px] font-semibold">
+                  {item.value}
+                </p>
+                <p className="text-[#da3f3f] text-[12px] max-[450px]:text-[10px] font-medium">
+                  {item.label}
+                </p>
               </div>
             ))}
           </div>

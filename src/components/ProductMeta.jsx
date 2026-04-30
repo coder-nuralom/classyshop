@@ -6,18 +6,31 @@ import { FaAngleUp } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
+import { useDispatch, useSelector } from "react-redux";
+import { addToCart, updateQuantity } from "../../features/cartSlice";
 
 const ProductMeta = ({ product }) => {
+  const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cart);
+  const existingItem = cartItems.find((item) => item.id === product.id);
   const sizes = ["S", "M", "L", "XL"];
   const [seletedSize, setSeletedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
 
-  const increment = () => setQuantity((prev) => prev + 1);
+  const increment = () => {
+    setQuantity((prev) => prev + 1);
+  };
+
   const decrement = () => {
     if (quantity > 1) {
       setQuantity((prev) => prev - 1);
     }
   };
+
+  const handleQty = (newQty) => {
+    dispatch(updateQuantity({ id: product.id, quantity: newQty }));
+  };
+
   return (
     <div>
       <Link className="text-[var(--bg-orange)] text-sm font-medium">{product.category}</Link>
@@ -94,7 +107,10 @@ const ProductMeta = ({ product }) => {
           </div>
         </div>
         <div className="flex flex-wrap items-center gap-3">
-          <button className="bg-[var(--bg-orange)] text-white text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3 py-[9px] rounded-sm cursor-pointer flex items-center gap-3 hover:bg-black duration-300">
+          <button
+            onClick={() => dispatch(addToCart(product))}
+            className="bg-[var(--bg-orange)] text-white text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3 py-[9px] rounded-sm cursor-pointer flex items-center gap-3 hover:bg-black duration-300"
+          >
             <BsCart2 className="text-xl" />
             Add To Cart
           </button>

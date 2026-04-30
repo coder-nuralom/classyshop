@@ -4,8 +4,11 @@ import BreadCumbs from "../components/BreadCumbs";
 import ProductsSlider from "../components/ProductsSlider";
 import CartSummery from "../components/CartSummery";
 import CartItem from "../components/CartItem";
+import products from "../../Data/productsData";
+import { useSelector } from "react-redux";
 
 const CartPage = () => {
+  const cartItems = useSelector((state) => state.cart.cart);
   return (
     <>
       <SectionWrapper className="mb-15 bg-gray-50 py-12.5">
@@ -18,7 +21,7 @@ const CartPage = () => {
               </h2>
             </div>
             <div className="border space-y-4 border-black/10 px-3 sm:px-6 py-6 rounded-b-md border-t-0">
-              {[...Array(3)].map((_, index) => (
+              {cartItems?.map((item, index) => (
                 <CartItem key={index} />
               ))}
             </div>
@@ -32,7 +35,7 @@ const CartPage = () => {
       </SectionWrapper>
 
       <SectionWrapper className="mb-12.5">
-        <ProductsSlider title={"Popular Products"} />
+        <ProductsSlider title={"Popular Products"} products={products} />
       </SectionWrapper>
     </>
   );

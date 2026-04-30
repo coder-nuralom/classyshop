@@ -19,6 +19,7 @@ import { toggleSearchModal } from "../../features/searchModalSlice";
 import ProfileMenu from "./ProfileMenu";
 const Header = () => {
   const dispatch = useDispatch();
+  const cartItems = useSelector((state) => state.cart.cart);
 
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
@@ -156,7 +157,7 @@ const Header = () => {
                 <Link onClick={() => dispatch(toggleCart())} className="relative group">
                   <BsCart2 className="text-[25px] xl:text-[28px] max-[470px]:text-[23px] hover:text-[var(--bg-orange)] duration-200" />
                   <span className="absolute -top-2 -right-2 bg-[var(--bg-orange)] rounded-full h-4.5 xl:h-5 w-4.5 xl:w-5 flex items-center justify-center text-xs text-white">
-                    0
+                    {cartItems.length}
                   </span>
                   <span className="text-xs bg-[var(--bg-orange)] text-white px-2 py-1 absolute left-1/2 -translate-x-1/2 top-[120%] pointer-events-none opacity-0 group-hover:opacity-100 transition-all duration-200 group-hover:delay-500">
                     Cart

@@ -8,11 +8,13 @@ import { Navigation } from "swiper/modules";
 import ProductCard from "./ProductCard";
 import { FaCaretLeft } from "react-icons/fa6";
 import { FaCaretRight } from "react-icons/fa6";
-
-const catgroies = ["fashion", "furniture", "electronics", "beauty"];
+import products from "../../Data/productsData";
+import homeCategories from "../../Data/homeCategroyData";
 
 const PopularProducts = () => {
-  const [selectedCategroy, setSelectedCategroy] = useState("fashion");
+  const [selectedCategroy, setSelectedCategroy] = useState(
+    homeCategories[0]?.name || "Fashion",
+  );
   const [showArrows, setShowArrows] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -55,6 +57,10 @@ const PopularProducts = () => {
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth);
   };
 
+  const filteredProducts = products.filter(
+    (item) => item.category.toLowerCase() === selectedCategroy.toLowerCase(),
+  );
+
   return (
     <div>
       <div className="flex items-center justify-between">
@@ -73,15 +79,15 @@ const PopularProducts = () => {
             onScroll={handleScroll}
             className="all_categories flex items-center overflow-x-auto gap-x-5 md:gap-x-8"
           >
-            {catgroies.map((item, index) => (
+            {homeCategories.slice(0, 3).map((item, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedCategroy(item)}
-                className={`text-base md:text-lg font-medium md:font-semibold capitalize cursor-pointer ${
-                  selectedCategroy === item.toLowerCase() ? "text-[#ff5252]" : "text-black/80"
+                onClick={() => setSelectedCategroy(item.name)}
+                className={`text-base md:text-lg font-medium capitalize leading-tight cursor-pointer whitespace-nowrap ${
+                  selectedCategroy === item.name ? "text-[#ff5252]" : "text-black/80"
                 }`}
               >
-                {item}
+                {item.name}
               </button>
             ))}
           </div>
@@ -134,9 +140,9 @@ const PopularProducts = () => {
         }}
         modules={[Navigation]}
       >
-        {[...Array(20)].map((_, index) => (
-          <SwiperSlide key={index} className="overflow-visible my-4">
-            <ProductCard />
+        {filteredProducts.map((product) => (
+          <SwiperSlide key={product.id} className="overflow-visible my-4">
+            <ProductCard product={product} />
           </SwiperSlide>
         ))}
       </Swiper>

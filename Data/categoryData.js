@@ -4,7 +4,8 @@ const categoryData = [
     name: "Fashion",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?fashion",
+    image:
+      "https://images.pexels.com/photos/5082563/pexels-photo-5082563.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "fashion",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -87,7 +88,8 @@ const categoryData = [
     name: "Electronics",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?electronics",
+    image:
+      "https://images.pexels.com/photos/1591060/pexels-photo-1591060.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "electronics",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -170,7 +172,8 @@ const categoryData = [
     name: "Home & Garden",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?home-garden",
+    image:
+      "https://images.pexels.com/photos/1111317/pexels-photo-1111317.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "home-garden",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -253,7 +256,8 @@ const categoryData = [
     name: "Sports & Outdoors",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?sports-outdoors",
+    image:
+      "https://images.pexels.com/photos/416745/pexels-photo-416745.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "sports-outdoors",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -336,7 +340,8 @@ const categoryData = [
     name: "Books",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?books",
+    image:
+      "https://images.pexels.com/photos/267891/pexels-photo-267891.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "books",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -419,7 +424,8 @@ const categoryData = [
     name: "Beauty & Personal Care",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?beauty-personal-care",
+    image:
+      "https://images.pexels.com/photos/5946102/pexels-photo-5946102.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "beauty-personal-care",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -502,7 +508,8 @@ const categoryData = [
     name: "Toys & Games",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?toys-games",
+    image:
+      "https://images.pexels.com/photos/1632798/pexels-photo-1632798.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "toys-games",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -585,7 +592,8 @@ const categoryData = [
     name: "Automotive",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?automotive",
+    image:
+      "https://images.pexels.com/photos/38121/red-car-vehicle-automobile-38121.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "automotive",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -668,7 +676,8 @@ const categoryData = [
     name: "Health & Household",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?health-household",
+    image:
+      "https://images.pexels.com/photos/414720/pexels-photo-414720.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "health-household",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -751,7 +760,8 @@ const categoryData = [
     name: "Jewelry & Watches",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?jewelry-watches",
+    image:
+      "https://images.pexels.com/photos/1794207/pexels-photo-1794207.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "jewelry-watches",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -834,7 +844,8 @@ const categoryData = [
     name: "Shoes",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?shoes",
+    image:
+      "https://images.pexels.com/photos/240876/pexels-photo-240876.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "shoes",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -917,7 +928,8 @@ const categoryData = [
     name: "Bags & Luggage",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?bags-luggage",
+    image:
+      "https://images.pexels.com/photos/292950/pexels-photo-292950.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "bags-luggage",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -1000,7 +1012,8 @@ const categoryData = [
     name: "Appliances",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?appliances",
+    image:
+      "https://images.pexels.com/photos/909907/pexels-photo-909907.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "appliances",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
@@ -1083,7 +1096,8 @@ const categoryData = [
     name: "Pet Supplies",
     parentCategoryName: null,
     parentCategoryId: null,
-    image: "https://source.unsplash.com/400x300/?pet-supplies",
+    image:
+      "https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&cs=tinysrgb&w=400&h=300&fit=crop",
     slug: "pet-supplies",
     createdAt: "2026-03-15T14:32:16.751+00:00",
     updatedAt: "2026-03-15T14:32:16.751+00:00",
