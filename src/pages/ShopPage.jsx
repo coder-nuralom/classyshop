@@ -13,9 +13,7 @@ const ShopPage = () => {
     <>
       <FilterDwarer />
 
-      <SectionWrapper className="mb-6">
-        <BreadCumbs />
-      </SectionWrapper>
+      <BreadCumbs className="mb-3" />
 
       <SectionWrapper className="pb-10">
         <div className="lg:flex lg:items-start lg:gap-10">

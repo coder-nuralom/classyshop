@@ -26,9 +26,7 @@ const ProductDetails = () => {
 
   return (
     <>
-      <SectionWrapper className="mb-6">
-        <BreadCumbs />
-      </SectionWrapper>
+      <BreadCumbs className="mb-5" />
 
       {/* Product Images and Price,Category,Brand Details */}
       <SectionWrapper className="pb-4">

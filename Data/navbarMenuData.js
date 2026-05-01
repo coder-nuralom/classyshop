@@ -39,6 +39,11 @@ const navbarMenuItems = [
     iconAlt: "best sellers",
     iconClass: "h-5.5",
   },
+  {
+    name: "Flash Sale",
+    path: "/products/flash-sale",
+    icon: null,
+  },
 ];
 
 export default navbarMenuItems;

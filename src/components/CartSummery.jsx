@@ -38,7 +38,7 @@ const CartSummery = ({ subtotal, shipping, tax, total }) => {
             Estimated Total:
           </span>
           <span className="text-[21px] lg:text-lg xl:text-[21px] font-semibold text-[var(--bg-orange)] max-[401px]:text-lg">
-            ₹{total}
+            ₹{total.toFixed(2)}
           </span>
         </div>
         <button

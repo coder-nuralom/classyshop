@@ -12,7 +12,7 @@ const OrderSummery = () => {
   const total = subtotal + tax + shipping;
 
   return (
-    <div className="bg-white py-7 px-6 border border-black/10 shadow-sm rounded-md">
+    <div className="bg-white py-7 px-5 sm:px-10 border border-black/10 shadow-sm rounded-md">
       <h2 className="text-[22px] font-medium flex items-center gap-2 pb-3 border-b border-black/10">
         <GoPackage className="text-3xl text-[var(--bg-orange)]" />
         Order Summery
@@ -77,7 +77,7 @@ const OrderSummery = () => {
           Estimated Total:
         </span>
         <span className="text-[21px] font-semibold text-[var(--bg-orange)] max-[401px]:text-lg">
-          ${total}
+          ${total.toFixed(2)}
         </span>
       </div>
     </div>

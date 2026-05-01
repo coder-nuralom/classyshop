@@ -4,12 +4,19 @@ import product2 from "../assets/oval-blue-charm-bracelet-2.webp";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { BsCart2 } from "react-icons/bs";
 import { BsDot } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
+import { useDispatch, useSelector } from "react-redux";
+import { wishlistToggle } from "../../features/wishlistSlice";
 const ProductCardListView = ({ product }) => {
   if (!product) return null;
+
+  const dispatch = useDispatch();
+  const wishlistItems = useSelector((state) => state.wishlist.wishlist);
+  const isWishlisted = wishlistItems.find((item) => item.id === product.id);
+
   const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
   const [timeLeft, setTimeLeft] = useState(null);
 
@@ -61,8 +68,15 @@ const ProductCardListView = ({ product }) => {
         </div>
 
         <div className="absolute top-[15px] -right-[25%] opacity-0 group-hover:right-[10px] group-hover:opacity-100 duration-400 ease-in-out flex flex-col bg-white rounded-md px-1 shadow-md">
-          <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
-            <IoMdHeartEmpty />
+          <button
+            className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200"
+            onClick={() => dispatch(wishlistToggle(product))}
+          >
+            {isWishlisted ? (
+              <IoMdHeart className="fill-[var(--bg-orange)]" />
+            ) : (
+              <IoMdHeartEmpty />
+            )}
           </button>
           <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
             <IoGitCompareOutline />

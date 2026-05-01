@@ -78,7 +78,7 @@ const Navbar = () => {
 
   return (
     <div
-      className={`py-2 sticky top-0 z-10 bg-white ${isSticky ? "shadow-md" : ""} hidden lg:block`}
+      className={`py-2 sticky top-0 z-10 bg-white ${isSticky ? "shadow-md" : ""} hidden xl:block`}
     >
       <div className="container mx-auto px-4 max-[450px]:px-2 sm:px-6 flex items-center">
         <div className="col_1 w-auto shrink-0 relative" ref={dropDownRef}>
@@ -102,7 +102,7 @@ const Navbar = () => {
 
         <div className="col_2 flex-1">
           <ul className="flex items-center gap-x-1 xl:gap-x-3">
-            {navbarMenuItems.map((item, index) => {
+            {navbarMenuItems.slice(0, 6).map((item, index) => {
               const Icon = item.icon;
               return (
                 <li key={index}>
@@ -123,7 +123,7 @@ const Navbar = () => {
 
         <div className="hidden xl:block xl:col_3 w-[18%]">
           <Link
-            to={"/flash-sale"}
+            to={"/products/flash-sale"}
             className="flex items-center justify-end gap-x-3 font-medium"
           >
             <MdOutlineRocketLaunch className="text-[28px] text-[var(--bg-orange)] font-black" />

@@ -96,10 +96,14 @@ const MobileMenuDrawer = () => {
               {navbarMenuItems.map((item, index) => (
                 <li key={index}>
                   <NavLink
+                    onClick={() => dispatch(toggleMenu())}
                     to={item.path}
-                    className="block px-4 py-2 hover:bg-gray-200 text-sm"
+                    className={({ isActive }) =>
+                      `flex items-center ${item.icon && "gap-x-2"} px-4 py-2 hover:bg-gray-200 font-medium text-sm ${isActive ? "text-red-600 bg-gray-100" : ""}`
+                    }
                   >
                     {item.name}
+                    <img src={item.icon} alt={item.iconAlt} className={`${item.iconClass}`} />
                   </NavLink>
                 </li>
               ))}

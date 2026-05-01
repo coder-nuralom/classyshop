@@ -4,12 +4,16 @@ import product2 from "../assets/oval-blue-charm-bracelet-2.webp";
 import { Link } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { BsCart2 } from "react-icons/bs";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
+import { wishlistToggle } from "../../features/wishlistSlice";
+
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
+  const wishlistItems = useSelector((state) => state.wishlist.wishlist);
+
   if (!product) return null;
   const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
 
@@ -42,6 +46,8 @@ const ProductCard = ({ product }) => {
     return () => clearInterval(timer);
   }, [product?.dealEnd]);
 
+  const isWishlisted = wishlistItems.find((item) => item.id === product.id);
+
   return (
     <div className="shadow-sm border border-black/6 bg-white rounded-lg group h-full flex flex-col">
       <div className="h-60 max-[460px]:h-50  overflow-hidden rounded-tr-lg rounded-tl-lg relative">
@@ -66,8 +72,15 @@ const ProductCard = ({ product }) => {
         </div>
 
         <div className="absolute top-[15px] -right-[25%] opacity-0 group-hover:right-[10px] group-hover:opacity-100 duration-400 ease-in-out flex flex-col bg-white rounded-md px-1 shadow-md">
-          <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
-            <IoMdHeartEmpty />
+          <button
+            onClick={() => dispatch(wishlistToggle(product))}
+            className={`text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200`}
+          >
+            {isWishlisted ? (
+              <IoMdHeart className="fill-[var(--bg-orange)]" />
+            ) : (
+              <IoMdHeartEmpty />
+            )}
           </button>
           <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
             <IoGitCompareOutline />
