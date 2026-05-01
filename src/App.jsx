@@ -25,6 +25,7 @@ import LogoutConfirmation from "./components/LogoutConfirmation";
 import HeaderTopStrip from "./components/HeaderTopStrip";
 import MobileMenuDrawer from "./components/MobileMenuDrawer";
 import SearchModal from "./components/SearchModal";
+import OrderConfirmation from "./pages/OrderConfirmation";
 
 const App = () => {
   const showLogoutModal = useSelector((state) => state.logoutModal.showLogoutModal);
@@ -60,6 +61,7 @@ const App = () => {
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<CartPage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
+          <Route path="/order-confirmation" element={<OrderConfirmation />} />
           <Route path="/my-account" element={<UserLayout />}>
             <Route index element={<MyAccount />} />
             <Route path="orders" element={<MyOrders />} />

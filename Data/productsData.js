@@ -438,10 +438,10 @@ const products = [
     thumbnail:
       "https://enseig.com/30-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
     gallery: [
-      "https://enseig.com/30-small_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
-      "https://enseig.com/31-small_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
-      "https://enseig.com/32-small_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
-      "https://enseig.com/33-small_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
+      "https://enseig.com/30-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
+      "https://enseig.com/31-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
+      "https://enseig.com/32-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
+      "https://enseig.com/33-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
     ],
     description:
       "Premium MVMT Chrono analog watch with sleek black dial, perfect for men. Stylish chronograph design with high-quality craftsmanship.",

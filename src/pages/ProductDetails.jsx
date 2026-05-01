@@ -12,6 +12,8 @@ const ProductDetails = () => {
   const { id } = useParams();
   const product = products.find((p) => p.id === Number(id));
 
+  const relatedProducts = products?.filter((item) => item.category === product.category);
+
   if (!product) {
     return (
       <SectionWrapper className="mt-2">
@@ -47,7 +49,7 @@ const ProductDetails = () => {
 
       {/* Related Products */}
       <SectionWrapper className="mb-12.5">
-        <ProductsSlider title="Related Products" products={products} />
+        <ProductsSlider title="Related Products" products={relatedProducts} />
       </SectionWrapper>
     </>
   );
