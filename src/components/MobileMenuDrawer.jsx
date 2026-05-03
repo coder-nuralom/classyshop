@@ -7,8 +7,10 @@ import categoryData from "../../Data/categoryData";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../features/mobileMenuSlice";
 import { RxCross1 } from "react-icons/rx";
+import { useNavigate } from "react-router-dom";
 
 const MobileMenuDrawer = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const showMobileMenu = useSelector((state) => state.mobileMenu.showMobileMenu);
   const [activeTab, setActiveTab] = useState("menu");
@@ -18,24 +20,59 @@ const MobileMenuDrawer = () => {
     setOpenIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
   };
 
+  const getAllChildIdsFromTree = (category) => {
+    let ids = [];
+
+    const traverse = (node) => {
+      ids.push(node.id);
+
+      if (node.children && node.children.length > 0) {
+        node.children.forEach(traverse);
+      }
+    };
+
+    traverse(category);
+
+    return ids;
+  };
+
+  const handleCategroyClick = (item) => {
+    const categoryIds = getAllChildIdsFromTree(item);
+
+    navigate("/shop", {
+      state: {
+        categoryIds,
+        searchTerm: "",
+      },
+    });
+    dispatch(toggleMenu());
+  };
+
   // recursive category renderer
   const renderCategories = (items, level = 0) => {
     return items.map((item) => {
-      const isOpen = openIds.includes(item._id);
+      const isOpen = openIds.includes(item.id);
       const hasChildren = item.children && item.children.length > 0;
 
       return (
-        <div key={item._id} className={`bg-gray-100 px-2`}>
-          <div
-            onClick={() => hasChildren && toggleCategory(item._id)}
-            className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-200"
-          >
-            <span className="text-sm">{item.name}</span>
+        <div key={item.id} className={`bg-gray-100 px-2`}>
+          <div className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-200">
+            <span onClick={() => handleCategroyClick(item)} className="text-sm">
+              {item.name}
+            </span>
 
             {hasChildren && (
-              <IoIosArrowDown
-                className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-              />
+              <span
+                onClick={(e) => {
+                  e.stopPropagation();
+                  toggleCategory(item.id);
+                }}
+                className="border border-black/10 h-6 w-6 flex items-center justify-center rounded-md"
+              >
+                <IoIosArrowDown
+                  className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+                />
+              </span>
             )}
           </div>
 

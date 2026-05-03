@@ -10,7 +10,7 @@ import { toggleCart } from "../../features/cartSlice";
 import { setLogin, setLogout } from "../../features/authSlice";
 import { IoChevronDown } from "react-icons/io5";
 import { IoChevronUp } from "react-icons/io5";
-import categoryData from "../../Data/categoryData";
+import categories from "../../Data/categoryData";
 import { Collapse } from "react-collapse";
 import { RxHamburgerMenu } from "react-icons/rx";
 import { AiOutlineUser } from "react-icons/ai";
@@ -28,8 +28,8 @@ const Header = () => {
 
   // Filter only parent categories
   const parentCategories = [
-    { _id: "all", name: "All Categories" },
-    ...categoryData.filter((cat) => cat.parentCategoryId === null),
+    { id: "all", name: "All Categories" },
+    ...categories.filter((cat) => cat.parentId === null),
   ];
 
   useEffect(() => {
@@ -68,7 +68,7 @@ const Header = () => {
                 <button
                   onClick={() => setShowCategoryDropdown((prev) => !prev)}
                   type="button"
-                  className="text-sm xl:text-base font-normal cursor-pointer w-fit px-2 h-full flex items-center gap-x-2 whitespace-nowrap"
+                  className="text-sm xl:text-[15px] font-normal cursor-pointer w-fit px-2 h-full flex items-center gap-x-2 whitespace-nowrap"
                 >
                   {selectedCategory}
                   {showCategoryDropdown ? (
@@ -77,13 +77,13 @@ const Header = () => {
                     <IoChevronDown className="ml-1" />
                   )}
                 </button>
-                <div className="categroy_dowpdown absolute left-0 top-full w-55  z-20">
+                <div className="categroy_dowpdown absolute left-0 top-full mt-2 w-55  z-20">
                   <Collapse isOpened={showCategoryDropdown}>
                     <ul className="max-h-100 overflow-y-auto bg-white border border-gray-200 rounded-md shadow-lg transition-all duration-200">
-                      {parentCategories.map((category) => (
+                      {parentCategories.map((category, index) => (
                         <li
-                          key={category._id}
-                          className="hover:bg-[var(--bg-orange)] px-4 py-[5px] hover:text-white cursor-pointer text-[15px] cursor-pointer"
+                          key={category.id}
+                          className="hover:bg-[var(--bg-orange)] px-4 py-[5px] hover:text-white cursor-pointer text-[15px] font-normal cursor-pointer"
                           onClick={() => {
                             setShowCategoryDropdown(false);
                             setSelectedCategory(category.name);

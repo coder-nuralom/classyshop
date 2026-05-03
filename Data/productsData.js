@@ -16,6 +16,7 @@ const products = [
     isBestSelling: false,
     isLatest: false,
     stock: 25,
+    categoryId: 122, // Rings
     thumbnail:
       "https://enseig.com/2-home_default/real-diamond-jewellery-gold-diamond-ring.jpg",
     gallery: [
@@ -40,6 +41,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 150,
+    categoryId: 111, // T-Shirt
     thumbnail: "https://enseig.com/14-home_default/women-solid-round-neck-cotton-t-shirt.jpg",
     gallery: ["https://enseig.com/14-home_default/women-solid-round-neck-cotton-t-shirt.jpg"],
     description: "Comfortable solid cotton t-shirt with round neck design for everyday wear.",
@@ -60,6 +62,7 @@ const products = [
     isBestSelling: true,
     isLatest: true,
     stock: 45,
+    categoryId: 911, // Sneaker Shoes
     thumbnail:
       "https://enseig.com/46-home_default/nike-air-gold-pink-v-series-cast-and-crew-shoes.jpg",
     gallery: [
@@ -83,6 +86,7 @@ const products = [
     isBestSelling: false,
     isLatest: false,
     stock: 120,
+    categoryId: 122, // Rings (Accessories)
     thumbnail:
       "https://enseig.com/66-home_default/full-rim-fashionable-and-stylish-sunglasses.jpg",
     gallery: [
@@ -106,6 +110,7 @@ const products = [
     isBestSelling: true,
     isLatest: true,
     stock: 20,
+    categoryId: 211, // Smart Tablet
     thumbnail: "https://enseig.com/71-home_default/macbook-pro-with-apple-m1-pro-chip.jpg",
     gallery: ["https://enseig.com/71-home_default/macbook-pro-with-apple-m1-pro-chip.jpg"],
     description: "High-performance MacBook Pro powered by Apple M1 Pro chip.",
@@ -126,6 +131,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 50,
+    categoryId: 211, // Smart Tablet
     thumbnail: "https://enseig.com/76-home_default/iphone-13-128gb-blue-unlocked-premium.jpg",
     gallery: ["https://enseig.com/76-home_default/iphone-13-128gb-blue-unlocked-premium.jpg"],
     description: "Premium iPhone 13 128GB in stunning blue color, unlocked.",
@@ -146,6 +152,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 75,
+    categoryId: 212, // Controller
     thumbnail:
       "https://enseig.com/86-home_default/google-pixel-buds-pro-noise-canceling-earbuds.jpg",
     gallery: [
@@ -169,6 +176,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 60,
+    categoryId: 911, // Sneaker Shoes
     thumbnail:
       "https://enseig.com/104-home_default/lizoleor-slip-on-block-heels-women-pointed-toe.jpg",
     gallery: [
@@ -192,6 +200,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 80,
+    categoryId: 211, // Smart Tablet
     thumbnail: "https://enseig.com/108-home_default/redmi-pad-4-gb-ram-128-gb-rom-tablet.jpg",
     gallery: ["https://enseig.com/108-home_default/redmi-pad-4-gb-ram-128-gb-rom-tablet.jpg"],
     description: "Powerful Redmi tablet with 4GB RAM, 128GB storage and premium display.",
@@ -212,6 +221,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 35,
+    categoryId: 123, // Leather Watch
     thumbnail: "https://enseig.com/117-home_default/apple-watch-se-44mm-gpscellular-gold.jpg",
     gallery: ["https://enseig.com/117-home_default/apple-watch-se-44mm-gpscellular-gold.jpg"],
     description: "Premium Apple Watch SE 44mm in elegant gold finish with GPS+Cellular.",
@@ -232,6 +242,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 40,
+    categoryId: 121, // Purse
     thumbnail:
       "https://enseig.com/134-home_default/moshi-latest-venturo-premium-laptop-backpack.jpg",
     gallery: [
@@ -254,6 +265,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 65,
+    categoryId: 212, // Controller
     thumbnail:
       "https://enseig.com/146-home_default/google-home-smart-home-speaker-assistant.jpg",
     gallery: [
@@ -277,6 +289,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 90,
+    categoryId: 31, // Chair
     thumbnail:
       "https://enseig.com/160-home_default/bottle-grinder-set-ceramic-spice-mill-2-pcs.jpg",
     gallery: [
@@ -300,6 +313,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 12,
+    categoryId: 31, // Chair
     thumbnail:
       "https://enseig.com/165-home_default/latest-ferm-living-post-storage-cabinet.jpg",
     gallery: [
@@ -323,6 +337,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 8,
+    categoryId: 31, // Chair
     thumbnail:
       "https://enseig.com/169-home_default/velvet-sofa-button-tufted-couch-with-2-pillows.jpg",
     gallery: [
@@ -346,6 +361,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 25,
+    categoryId: 31, // Chair
     thumbnail:
       "https://enseig.com/174-home_default/umi-chindi-puffy-stool-for-living-room.jpg",
     gallery: [
@@ -369,6 +385,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 30,
+    categoryId: 122, // Rings
     thumbnail: "https://enseig.com/197-home_default/exquisite-dual-jewel-diamond-danglers.jpg",
     gallery: ["https://enseig.com/197-home_default/exquisite-dual-jewel-diamond-danglers.jpg"],
     description: "Exquisite dual jewel diamond dangler earrings for elegant look.",
@@ -388,6 +405,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 18,
+    categoryId: 122, // Rings
     thumbnail:
       "https://enseig.com/201-home_default/solitaire-erina-ring-kisna-white-gold-ring.jpg",
     gallery: [
@@ -411,6 +429,7 @@ const products = [
     isBestSelling: true,
     isLatest: true,
     stock: 110,
+    categoryId: 111, // T-Shirt
     thumbnail:
       "https://enseig.com/184-home_default/adro-men-print-regular-fit-hoodie-for-men.jpg",
     gallery: [
@@ -434,6 +453,7 @@ const products = [
     isBestSelling: true,
     isLatest: false,
     stock: 22,
+    categoryId: 122, // Rings
     thumbnail: "https://enseig.com/178-home_default/diamond-ed-pendant-yellow-gold-14kt.jpg",
     gallery: ["https://enseig.com/178-home_default/diamond-ed-pendant-yellow-gold-14kt.jpg"],
     description: "Beautiful diamond ED pendant crafted in 14KT yellow gold.",
@@ -454,6 +474,7 @@ const products = [
     isBestSelling: true,
     isLatest: true,
     stock: 40,
+    categoryId: 123, // Leather Watch
     thumbnail:
       "https://enseig.com/30-large_default/mvmt-chrono-analog-black-dial-men-watch.jpg",
     gallery: [
@@ -481,6 +502,7 @@ const products = [
     isBestSelling: false,
     isLatest: true,
     stock: 85,
+    categoryId: 31, // Chair
     thumbnail:
       "https://enseig.com/151-home_default/evans-lichfield-sunningdale-velvet-pillow.jpg",
     gallery: [
@@ -505,6 +527,7 @@ const products = [
     isBestSelling: true,
     isLatest: true,
     stock: 120,
+    categoryId: 31, // Chair
     thumbnail: household,
     gallery: [
       "https://rokbucket.rokomari.io/ProductNew20190903/45X64/Household_Table_and_Chair_Foot_Covers_Fo-Non_Brand-98aa3-447001.png",

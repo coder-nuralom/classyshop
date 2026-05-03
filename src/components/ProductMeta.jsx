@@ -1,18 +1,22 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { IoStar } from "react-icons/io5";
 import { FaAngleDown } from "react-icons/fa6";
 import { FaAngleUp } from "react-icons/fa6";
 import { BsCart2 } from "react-icons/bs";
 import { IoGitCompareOutline } from "react-icons/io5";
-import { IoMdHeartEmpty } from "react-icons/io";
+import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, updateQuantity } from "../../features/cartSlice";
+import { wishlistToggle } from "../../features/wishlistSlice";
 
 const ProductMeta = ({ product }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cart);
+  const wishlistItems = useSelector((state) => state.wishlist.wishlist);
   const existingItem = cartItems.find((item) => item.id === product.id);
+  const isInWishlist = wishlistItems.find((item) => item.id === product.id);
   const sizes = ["S", "M", "L", "XL"];
   const [seletedSize, setSeletedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -114,17 +118,36 @@ const ProductMeta = ({ product }) => {
             <BsCart2 className="text-xl" />
             Add To Cart
           </button>
-          <button className="bg-black text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium text-white px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3  py-[9px] rounded-sm cursor-pointer hover:bg-[var(--bg-orange)] duration-300 max-[370px]:hidden">
+          <button
+            onClick={() => {
+              dispatch(addToCart(product));
+              navigate("/checkout");
+            }}
+            className="bg-black text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium text-white px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3  py-[9px] rounded-sm cursor-pointer hover:bg-[var(--bg-orange)] duration-300 max-[370px]:hidden"
+          >
             Buy Now
           </button>
         </div>
       </div>
-      <button className="bg-black w-full mt-4 text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium text-white px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3 py-[9px] rounded-sm cursor-pointer hover:bg-[var(--bg-orange)] duration-300 min-[370px]:hidden">
+      <button
+        onClick={() => {
+          dispatch(addToCart(product));
+          navigate("/checkout");
+        }}
+        className="bg-black w-full mt-4 text-base min-[901px]:text-sm lg:text-base max-[424px]:text-sm font-medium text-white px-5 min-[901px]:px-3 lg:px-5 max-[424px]:px-3 py-[9px] rounded-sm cursor-pointer hover:bg-[var(--bg-orange)] duration-300 min-[370px]:hidden"
+      >
         Buy Now
       </button>
       <div className="flex flex-wrap items-center gap-x-7 gap-y-3 mt-5">
-        <button className="text-[15px] min-[901px]:text-sm lg:text-[15px] font-medium rounded-sm cursor-pointer flex items-center gap-2 hover:text-[var(--bg-orange)]">
-          <IoMdHeartEmpty className="text-base" />
+        <button
+          onClick={() => dispatch(wishlistToggle(product))}
+          className="text-[15px] min-[901px]:text-sm lg:text-[15px] font-medium rounded-sm cursor-pointer flex items-center gap-2 hover:text-[var(--bg-orange)]"
+        >
+          {isInWishlist ? (
+            <IoMdHeart className="text-base fill-[var(--bg-orange)]" />
+          ) : (
+            <IoMdHeartEmpty className="text-base" />
+          )}
           Add To Wishlist
         </button>
         <button className="text-[15px] min-[901px]:text-sm lg:text-[15px] font-medium rounded-sm cursor-pointer flex items-center gap-2 hover:text-[var(--bg-orange)]">

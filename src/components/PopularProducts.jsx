@@ -9,12 +9,9 @@ import ProductCard from "./ProductCard";
 import { FaCaretLeft } from "react-icons/fa6";
 import { FaCaretRight } from "react-icons/fa6";
 import products from "../../Data/productsData";
-import homeCategories from "../../Data/homeCategroyData";
+import categories from "../../Data/categoryData";
 
 const PopularProducts = () => {
-  const [selectedCategroy, setSelectedCategroy] = useState(
-    homeCategories[0]?.name || "Fashion",
-  );
   const [showArrows, setShowArrows] = useState(false);
   const [canScrollLeft, setCanScrollLeft] = useState(false);
   const [canScrollRight, setCanScrollRight] = useState(true);
@@ -57,9 +54,9 @@ const PopularProducts = () => {
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth);
   };
 
-  const filteredProducts = products.filter(
-    (item) => item.category.toLowerCase() === selectedCategroy.toLowerCase(),
-  );
+  const [selectedCategroy, setSelectedCategroy] = useState(categories[0]?.id || "fashion");
+
+  const filteredProducts = products.filter((item) => item.categroyId === selectedCategroy.id);
 
   return (
     <div>
@@ -79,7 +76,7 @@ const PopularProducts = () => {
             onScroll={handleScroll}
             className="all_categories flex items-center overflow-x-auto gap-x-5 md:gap-x-8"
           >
-            {homeCategories.slice(0, 3).map((item, index) => (
+            {categories.slice(0, 3).map((item, index) => (
               <button
                 key={index}
                 onClick={() => setSelectedCategroy(item.name)}

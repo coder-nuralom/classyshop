@@ -4,9 +4,26 @@ import "swiper/css";
 import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
-import homeCategories from "../../Data/homeCategroyData";
+import categories from "../../Data/categoryData";
 
 const Categories = () => {
+  const getLeafCategrories = (categories) => {
+    let result = [];
+
+    const traverse = (items) => {
+      items.forEach((item) => {
+        if (item.children && item.children.length > 0) {
+          traverse(item.children);
+        } else {
+          result.push(item);
+        }
+      });
+    };
+    traverse(categories);
+    return result;
+  };
+
+  const leaftCategories = getLeafCategrories(categories);
   return (
     <div>
       <Swiper
@@ -23,7 +40,7 @@ const Categories = () => {
           1024: { slidesPerView: 7, spaceBetween: 20 },
         }}
       >
-        {homeCategories.map((category) => (
+        {leaftCategories.map((category) => (
           <SwiperSlide key={category.id}>
             <Link to={`/category/${category.slug}`}>
               <div className="bg-white py-2 relative rounded-lg">

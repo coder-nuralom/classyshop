@@ -6,7 +6,7 @@ import { Link, NavLink } from "react-router-dom";
 import navbarMenuItems from "../../Data/navbarMenuData";
 import { Collapse } from "react-collapse";
 import { IoIosArrowDown } from "react-icons/io";
-import categoryData from "../../Data/categoryData";
+import categories from "../../Data/categoryData";
 
 const Navbar = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -47,13 +47,13 @@ const Navbar = () => {
 
   const renderCategories = (items, level = 0) => {
     return items.map((item) => {
-      const isOpen = openIds.includes(item._id);
+      const isOpen = openIds.includes(item.id);
       const hasChildren = item.children && item.children.length > 0;
 
       return (
-        <div key={item._id} className="bg-gray-100 px-3">
+        <div key={item.id} className="bg-gray-100 px-3">
           <div
-            onClick={() => toggleCategroy(item._id)}
+            onClick={() => toggleCategroy(item.id)}
             className="flex items-center justify-between cursor-pointer py-2"
           >
             <span className="whitespace-nowrap">{item.name}</span>
@@ -92,8 +92,8 @@ const Navbar = () => {
 
           <div className="absolute top-full left-0">
             <Collapse isOpened={showDropDownCategoryMenu}>
-              <div className="bg-white shadow-sm border border-black/10 rounded-sm h-120 space-y-1 w-fit overflow-y-auto mt-2 dropMenu_scrollbar pr-1.5">
-                {renderCategories(categoryData)}
+              <div className="bg-white shadow-sm border border-black/10 rounded-sm h-fit max-h-120 space-y-1 w-fit overflow-y-auto mt-2 dropMenu_scrollbar pr-1.5 pb-2">
+                {renderCategories(categories)}
               </div>
             </Collapse>
           </div>
@@ -102,10 +102,10 @@ const Navbar = () => {
 
         <div className="col_2 flex-1">
           <ul className="flex items-center gap-x-1 xl:gap-x-3">
-            {navbarMenuItems.slice(0, 6).map((item, index) => {
+            {navbarMenuItems.map((item, index) => {
               const Icon = item.icon;
               return (
-                <li key={index}>
+                <li key={index} className={`${item.name === "Flash Sale" && "hidden"}`}>
                   <NavLink
                     to={item.path}
                     className={({ isActive }) =>
