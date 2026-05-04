@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { toggleMenu } from "../../features/mobileMenuSlice";
 import { RxCross1 } from "react-icons/rx";
 import { useNavigate } from "react-router-dom";
+import { setCategoryIds, setSearchTerm } from "../../features/productFilterSlice";
 
 const MobileMenuDrawer = () => {
   const navigate = useNavigate();
@@ -23,11 +24,11 @@ const MobileMenuDrawer = () => {
   const getAllChildIdsFromTree = (category) => {
     let ids = [];
 
-    const traverse = (node) => {
-      ids.push(node.id);
+    const traverse = (categoryItem) => {
+      ids.push(categoryItem.id);
 
-      if (node.children && node.children.length > 0) {
-        node.children.forEach(traverse);
+      if (categoryItem.children && categoryItem.children.length > 0) {
+        categoryItem.children.forEach((child) => traverse(child));
       }
     };
 
@@ -36,15 +37,14 @@ const MobileMenuDrawer = () => {
     return ids;
   };
 
-  const handleCategroyClick = (item) => {
+  const handleCategoryClick = (item) => {
     const categoryIds = getAllChildIdsFromTree(item);
 
-    navigate("/shop", {
-      state: {
-        categoryIds,
-        searchTerm: "",
-      },
-    });
+    dispatch(setCategoryIds(categoryIds));
+    dispatch(setSearchTerm(""));
+
+    navigate("/shop");
+    scrollTo(0, 0);
     dispatch(toggleMenu());
   };
 
@@ -57,7 +57,7 @@ const MobileMenuDrawer = () => {
       return (
         <div key={item.id} className={`bg-gray-100 px-2`}>
           <div className="flex items-center justify-between cursor-pointer py-2 hover:bg-gray-200">
-            <span onClick={() => handleCategroyClick(item)} className="text-sm">
+            <span onClick={() => handleCategoryClick(item)} className="text-sm">
               {item.name}
             </span>
 

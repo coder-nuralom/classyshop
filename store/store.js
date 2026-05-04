@@ -6,6 +6,7 @@ import { logoutModalSlice } from "../features/logoutModalSlice";
 import { mobileMenuSlice } from "../features/mobileMenuSlice";
 import { searchModalSlice } from "../features/searchModalSlice";
 import { wishlistSlice } from "../features/wishlistSlice";
+import { productFilterSlice } from "../features/productFilterSlice";
 
 export const store = configureStore({
   reducer: {
@@ -16,5 +17,6 @@ export const store = configureStore({
     mobileMenu: mobileMenuSlice.reducer,
     searchModal: searchModalSlice.reducer,
     wishlist: wishlistSlice.reducer,
+    productFilter: productFilterSlice.reducer,
   },
 });

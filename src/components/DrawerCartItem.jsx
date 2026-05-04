@@ -4,8 +4,11 @@ import { HiMinus } from "react-icons/hi";
 import { HiPlus } from "react-icons/hi";
 import { FaRegTrashAlt } from "react-icons/fa";
 import { useDispatch } from "react-redux";
-import { removeFromCart, updateQuantity } from "../../features/cartSlice";
+import { removeFromCart, toggleCart, updateQuantity } from "../../features/cartSlice";
+import { useNavigate } from "react-router-dom";
+
 const DrawerCartItem = ({ singleItem }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleQty = (newQty) => {
     dispatch(updateQuantity({ id: singleItem.id, quantity: newQty }));
@@ -14,13 +17,25 @@ const DrawerCartItem = ({ singleItem }) => {
     <div className="flex items-center space-x-3 bg-gray-50 rounded-lg">
       <div className="max-[400px]:flex-1 shrink-0">
         <img
+          onClick={() => {
+            navigate(`/product/${singleItem.id}`);
+            dispatch(toggleCart());
+          }}
           src={singleItem.thumbnail}
           alt={`item_image`}
-          className="w-16 h-16 object-cover rounded-lg shrink-0"
+          className="w-16 h-16 object-cover rounded-lg shrink-0 cursoir-pointer"
         />
       </div>
       <div className="flex-1 min-w-0 max-[400px]:hidden">
-        <h4 className="font-medium text-gray-900 truncate">{singleItem.title}</h4>
+        <h4
+          onClick={() => {
+            navigate(`/product/${singleItem.id}`);
+            dispatch(toggleCart());
+          }}
+          className="font-medium text-gray-900 truncate cursor-pointer"
+        >
+          {singleItem.title}
+        </h4>
         <p className="text-sm font-medium">{singleItem.price}$</p>
       </div>
 

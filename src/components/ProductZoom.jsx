@@ -20,8 +20,8 @@ const ProductZoom = ({ product }) => {
     const handleResize = () => {
       const w = window.innerWidth;
 
-      if (w >= 1280) setIsVertical(true);
-      else if (w >= 901) setIsVertical(false);
+      if (w >= 1024) setIsVertical(true);
+      else if (w >= 901) setIsVertical(true);
       else if (w >= 640) setIsVertical(true);
       else setIsVertical(false);
     };
@@ -57,7 +57,7 @@ const ProductZoom = ({ product }) => {
           navigation={{ nextEl: ".next", prevEl: ".prev" }}
           onSwiper={setThumbsSwiper}
           modules={[FreeMode, Navigation, Thumbs]}
-          className="w-full image_zoom"
+          className="w-full h-full image_zoom"
         >
           {images.map((img, index) => (
             <SwiperSlide

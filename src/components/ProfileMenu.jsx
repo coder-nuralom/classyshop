@@ -14,6 +14,7 @@ const ProfileMenu = ({ className = "" }) => {
   const navigate = useNavigate();
   const isLoggedIn = useSelector((state) => state.auth.isLogin);
   const [showProfileMenu, setShowProfileMenu] = useState(false);
+
   const menuRef = useRef(null);
 
   // click outside
@@ -29,16 +30,17 @@ const ProfileMenu = ({ className = "" }) => {
   }, [setShowProfileMenu]);
 
   return (
-    <div className={`relative ${className}`}>
-      <div
-        onClick={(e) => {
-          e.stopPropagation();
-          setShowProfileMenu((prev) => !prev);
-        }}
-        className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center cursor-pointer"
-      >
+    <div ref={menuRef} className={`relative ${className}`}>
+      <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center cursor-pointer">
         {isLoggedIn ? (
-          <img src={profileImg} alt="" className="w-full h-full object-cover" />
+          <img
+            onClick={(e) => {
+              setShowProfileMenu((prev) => !prev);
+            }}
+            src={profileImg}
+            alt=""
+            className="w-full h-full object-cover"
+          />
         ) : (
           <AiOutlineUser className="text-[24px] hover:text-[var(--bg-orange)] duration-200" />
         )}

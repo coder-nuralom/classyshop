@@ -9,17 +9,24 @@ import products from "../../Data/productsData";
 import ProductCard from "../components/ProductCard";
 import ProductCardListView from "../components/ProductCardListView";
 import { useLocation } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { resetFilters } from "../../features/productFilterSlice";
 
 const ShopPage = () => {
-  const location = useLocation();
+  const dispatch = useDispatch();
   const [isGrid, setIsGrid] = useState(true);
 
-  const { categoryIds } = location.state || {};
+  const { searchTerm, categoryIds } = useSelector((state) => state.productFilter);
 
   const filteredProducts = products.filter((item) => {
-    const matchesCategroy = !categoryIds || categoryIds.includes(item.categoryId);
+    const matchesCategory =
+      !categoryIds || categoryIds.length === 0 || categoryIds.includes(item.categoryId);
 
-    return matchesCategroy;
+    const matchesSearch =
+      !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
+
+    return matchesCategory && matchesSearch;
   });
 
   return (
@@ -39,12 +46,36 @@ const ShopPage = () => {
             <div
               className={`grid gap-5 max-[450px]:gap-x-3 max-[450px]:gap-y-4 ${isGrid ? "grid-cols-2 md:grid-cols-3 xl:grid-cols-4" : "grid-cols-1"}`}
             >
-              {filteredProducts.map((item, index) =>
-                isGrid ? (
-                  <ProductCard product={item} key={index} />
-                ) : (
-                  <ProductCardListView product={item} key={index} />
-                ),
+              {filteredProducts.length > 0 ? (
+                filteredProducts.map((item, index) =>
+                  isGrid ? (
+                    <ProductCard product={item} key={index} />
+                  ) : (
+                    <ProductCardListView product={item} key={index} />
+                  ),
+                )
+              ) : (
+                <div className="col-span-full flex flex-col items-center justify-center py-16 text-center">
+                  <img
+                    src="https://cdn-icons-png.flaticon.com/512/4076/4076549.png"
+                    alt="No products"
+                    className="w-24 h-24 mb-4 opacity-70"
+                  />
+
+                  <h2 className="text-xl font-semibold mb-2">No Products Found</h2>
+
+                  <p className="text-gray-500 mb-4 max-w-sm">
+                    Sorry, we couldn’t find any products for this category. Try changing
+                    filters or explore other categories.
+                  </p>
+
+                  <button
+                    onClick={() => dispatch(resetFilters())}
+                    className="px-5 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                  >
+                    Reset Filters
+                  </button>
+                </div>
               )}
             </div>
             <Pagination />

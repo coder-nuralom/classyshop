@@ -2,13 +2,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { RiMenu2Fill } from "react-icons/ri";
 import { MdOutlineRocketLaunch } from "react-icons/md";
 import Button from "@mui/material/Button";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import navbarMenuItems from "../../Data/navbarMenuData";
 import { Collapse } from "react-collapse";
 import { IoIosArrowDown } from "react-icons/io";
 import categories from "../../Data/categoryData";
+import { useDispatch } from "react-redux";
+import { setCategoryIds, setSearchTerm } from "../../features/productFilterSlice";
 
 const Navbar = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
   const [isSticky, setIsSticky] = useState(false);
 
   useEffect(() => {
@@ -43,7 +47,30 @@ const Navbar = () => {
     setOpenIds((prev) => (prev.includes(id) ? prev.filter((i) => i !== id) : [...prev, id]));
   };
 
-  // recursive categroy renderer
+  const getAllChildIdsFromTree = (category) => {
+    let ids = [];
+
+    const traverse = (categoryItem) => {
+      ids.push(categoryItem.id);
+
+      if (categoryItem.children && categoryItem.children.length > 0) {
+        categoryItem.children.forEach((child) => traverse(child));
+      }
+    };
+
+    traverse(category);
+    return ids;
+  };
+
+  const handleCategoryClick = (item) => {
+    const categoryIds = getAllChildIdsFromTree(item);
+    dispatch(setCategoryIds(categoryIds));
+    dispatch(setSearchTerm(""));
+    navigate("/shop");
+    setShowDropDownCategoryMenu(false);
+  };
+
+  // recursive category renderer
 
   const renderCategories = (items, level = 0) => {
     return items.map((item) => {
@@ -52,15 +79,19 @@ const Navbar = () => {
 
       return (
         <div key={item.id} className="bg-gray-100 px-3">
-          <div
-            onClick={() => toggleCategroy(item.id)}
-            className="flex items-center justify-between cursor-pointer py-2"
-          >
-            <span className="whitespace-nowrap">{item.name}</span>
+          <div className="flex items-center justify-between cursor-pointer py-2">
+            <span onClick={() => handleCategoryClick(item)} className="whitespace-nowrap">
+              {item.name}
+            </span>
             {hasChildren && (
-              <IoIosArrowDown
-                className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
-              />
+              <span
+                onClick={() => toggleCategroy(item.id)}
+                className="border border-black/10 h-6 w-6 flex items-center justify-center rounded-md"
+              >
+                <IoIosArrowDown
+                  className={`transition-transform ${isOpen ? "rotate-180" : ""}`}
+                />
+              </span>
             )}
           </div>
 

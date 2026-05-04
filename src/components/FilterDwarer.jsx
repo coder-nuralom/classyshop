@@ -4,6 +4,7 @@ import { LuFilter } from "react-icons/lu";
 import SideBar from "./SideBar";
 import { useDispatch, useSelector } from "react-redux";
 import { toggleFilter } from "../../features/filterSlice";
+import categories from "../../Data/categoryData";
 
 const FilterDwarer = () => {
   const isFilterOpen = useSelector((state) => state.filter.isFilterOpen);

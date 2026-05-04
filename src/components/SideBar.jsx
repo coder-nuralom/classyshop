@@ -5,13 +5,48 @@ import { FaStar } from "react-icons/fa";
 import { Collapse } from "react-collapse";
 import RangeSlider from "react-range-slider-input";
 import "../../node_modules/react-range-slider-input/dist/style.css";
+import categories from "../../Data/categoryData";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryIds } from "../../features/productFilterSlice";
 
 const SideBar = () => {
+  const dispatch = useDispatch();
+  const selectedCategoryIds = useSelector((state) => state.productFilter.categoryIds);
   const ratings = [5, 4, 3, 2, 1];
   const [openCategories, setOpenCategories] = useState(true);
   const [oprenBrand, setOprenBrand] = useState(true);
   const [openPriceRange, setOpenPriceRange] = useState(true);
   const [openRating, setOpenRating] = useState(true);
+
+  const getLeafCategrories = (categories) => {
+    let result = [];
+
+    const traverse = (items) => {
+      items.forEach((item) => {
+        if (item.children && item.children.length > 0) {
+          traverse(item.children);
+        } else {
+          result.push(item);
+        }
+      });
+    };
+    traverse(categories);
+    return result;
+  };
+
+  const leafCategories = getLeafCategrories(categories);
+
+  const handleCategoryChange = (id) => {
+    let updated = [];
+
+    if (selectedCategoryIds?.includes(id)) {
+      updated = selectedCategoryIds.filter((item) => item !== id);
+    } else {
+      updated = [...selectedCategoryIds, id];
+    }
+
+    dispatch(setCategoryIds(updated));
+  };
 
   return (
     <aside className="space-y-6">
@@ -33,11 +68,17 @@ const SideBar = () => {
           <div
             className={`mt-5 pb-3 space-y-5 custom-scrollber ${[...Array(10)].length > 10 ? "max-h-100 overflow-y-auto" : "max-h-fit overflow-y-visible"}`}
           >
-            {[...Array(10)].map((_, index) => (
+            {leafCategories.map((category, index) => (
               <div key={index} className="flex items-center gap-2">
-                <input id="check1" type="checkBox" className="shrink-0 w-4 h-4 text-white" />
-                <label htmlFor="check1" className="text-[15px] leading-none font-normal">
-                  Fashion
+                <input
+                  id={index}
+                  type="checkbox"
+                  checked={selectedCategoryIds?.includes(category.id) || false}
+                  onChange={() => handleCategoryChange(category.id)}
+                  className="shrink-0 w-4 h-4"
+                />
+                <label htmlFor={index} className="text-[15px] leading-none font-normal">
+                  {category.name}
                 </label>
               </div>
             ))}

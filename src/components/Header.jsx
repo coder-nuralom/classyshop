@@ -1,5 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/logo.svg";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeartEmpty } from "react-icons/io";
@@ -17,21 +17,51 @@ import { AiOutlineUser } from "react-icons/ai";
 import { toggleMenu } from "../../features/mobileMenuSlice";
 import { toggleSearchModal } from "../../features/searchModalSlice";
 import ProfileMenu from "./ProfileMenu";
+import { setSearchTerm, setCategoryIds } from "../../features/productFilterSlice";
+
 const Header = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
+
+  const searchTerm = useSelector((state) => state.productFilter.searchTerm);
+
   const cartItems = useSelector((state) => state.cart.cart);
   const wishlistItems = useSelector((state) => state.wishlist.wishlist);
 
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
+  const [selectedObject, setSelectedObject] = useState(null);
+
   const categoryRef = useRef(null);
 
-  // Filter only parent categories
+  // filter only root parent categories
   const parentCategories = [
     { id: "all", name: "All Categories" },
     ...categories.filter((cat) => cat.parentId === null),
   ];
 
+  //get all child ids from category tree
+  const getAllChildIdsFromTree = (category) => {
+    let ids = [];
+
+    const traverse = (categoryItem) => {
+      ids.push(categoryItem.id);
+
+      if (categoryItem.children && categoryItem.children.length > 0) {
+        categoryItem.children.forEach((child) => traverse(child));
+      }
+    };
+
+    traverse(category);
+    return ids;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    navigate("/shop");
+  };
+
+  // Handle dropdown close on outside click
   useEffect(() => {
     const handleClickOutside = (event) => {
       if (categoryRef.current && !categoryRef.current.contains(event.target)) {
@@ -63,7 +93,10 @@ const Header = () => {
           </div>
 
           <div className="col_2 flex-1 min-w-[200px] max-w-[600px] hidden lg:block">
-            <form className="border-2 border-[var(--bg-orange)] rounded-[5px] flex items-center text-[var(--text-gray)]">
+            <form
+              className="border-2 border-[var(--bg-orange)] rounded-[5px] flex items-center text-[var(--text-gray)]"
+              onSubmit={handleSubmit}
+            >
               <div ref={categoryRef} className="relative">
                 <button
                   onClick={() => setShowCategoryDropdown((prev) => !prev)}
@@ -87,6 +120,14 @@ const Header = () => {
                           onClick={() => {
                             setShowCategoryDropdown(false);
                             setSelectedCategory(category.name);
+                            setSelectedObject(category);
+
+                            let idsToSend = null;
+
+                            if (category.id !== "all") {
+                              idsToSend = getAllChildIdsFromTree(category);
+                            }
+                            dispatch(setCategoryIds(idsToSend));
                           }}
                         >
                           {category.name}
@@ -101,6 +142,8 @@ const Header = () => {
 
               <input
                 type="text"
+                value={searchTerm}
+                onChange={(e) => dispatch(setSearchTerm(e.target.value))}
                 placeholder="Search product here.."
                 className="focus:outline-none text-sm xl:text-base placeholder:text-sm pr-2 flex-1 min-w-0"
               />
