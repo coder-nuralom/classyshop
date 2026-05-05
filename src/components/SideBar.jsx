@@ -7,14 +7,18 @@ import RangeSlider from "react-range-slider-input";
 import "../../node_modules/react-range-slider-input/dist/style.css";
 import categories from "../../Data/categoryData";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryIds } from "../../features/productFilterSlice";
+import { setCategoryIds, setPriceRange, setRating } from "../../features/productFilterSlice";
 
 const SideBar = () => {
   const dispatch = useDispatch();
   const selectedCategoryIds = useSelector((state) => state.productFilter.categoryIds);
+  const priceRange = useSelector((state) => state.productFilter.priceRange);
+  const SelectedRating = useSelector((state) => state.productFilter.rating);
+  const selectedBrands = useSelector((state) => state.productFilter.brands);
+
   const ratings = [5, 4, 3, 2, 1];
   const [openCategories, setOpenCategories] = useState(true);
-  const [oprenBrand, setOprenBrand] = useState(true);
+  const [openBrand, setOpenBrand] = useState(true);
   const [openPriceRange, setOpenPriceRange] = useState(true);
   const [openRating, setOpenRating] = useState(true);
 
@@ -89,18 +93,18 @@ const SideBar = () => {
       {/* Filter By Brand */}
       <div className="border border-black/10 py-3 px-3.5 rounded-[5px]">
         <h3
-          onClick={() => setOprenBrand(!oprenBrand)}
-          className={`flex items-center justify-between cursor-pointer text-base lg:text-sm xl:text-base text-black/90 font-medium px-0.5 border-[#e5e5e5] transition-all duration-400 ease-in-out ${oprenBrand ? "pb-[10px] border-b" : "pb-0 border-none"}`}
+          onClick={() => setOpenBrand(!openBrand)}
+          className={`flex items-center justify-between cursor-pointer text-base lg:text-sm xl:text-base text-black/90 font-medium px-0.5 border-[#e5e5e5] transition-all duration-400 ease-in-out ${openBrand ? "pb-[10px] border-b" : "pb-0 border-none"}`}
         >
           Shop By Brand
-          {oprenBrand ? (
+          {openBrand ? (
             <FaChevronUp className="text-base lg:text-xs xl:text-base" />
           ) : (
             <FaChevronDown className="text-base lg:text-xs xl:text-base" />
           )}
         </h3>
 
-        <Collapse isOpened={oprenBrand}>
+        <Collapse isOpened={openBrand}>
           <div
             className={`mt-5 pb-3 space-y-5 custom-scrollber ${[...Array(10)].length > 10 ? "max-h-100 overflow-y-auto" : "max-h-fit overflow-y-visible"}`}
           >
@@ -131,14 +135,21 @@ const SideBar = () => {
         </h3>
         <Collapse isOpened={openPriceRange}>
           <div className="mt-6">
-            <RangeSlider.default defaultValue={[0, 700]} min={100} max={1000} />
+            <RangeSlider.default
+              defaultValue={priceRange}
+              min={0}
+              max={1000}
+              onInput={(value) => dispatch(setPriceRange(value))}
+            />
           </div>
           <div className="mt-3 flex items-center justify-between">
             <span className="text-sm font-medium">
-              From: <strong className="text-[15px] text-[var(--bg-orange)]">{0}$</strong>
+              From:
+              <strong className="text-[15px] text-[var(--bg-orange)]">{priceRange[0]}$</strong>
             </span>
             <span className="text-sm font-medium">
-              To: <strong className="text-[15px] text-[var(--bg-orange)]">{1000}$</strong>
+              To:
+              <strong className="text-[15px] text-[var(--bg-orange)]">{priceRange[1]}$</strong>
             </span>
           </div>
         </Collapse>
@@ -160,7 +171,11 @@ const SideBar = () => {
         <Collapse isOpened={openRating}>
           <div className="space-y-3 mt-4 cursor-pointer">
             {ratings.map((value, index) => (
-              <div key={index} className="flex items-center gap-x-1">
+              <div
+                onClick={() => dispatch(setRating(value))}
+                key={index}
+                className="flex items-center gap-x-1"
+              >
                 {[...Array(5)].map((_, index) => (
                   <FaStar
                     key={index}

@@ -17,7 +17,9 @@ const ShopPage = () => {
   const dispatch = useDispatch();
   const [isGrid, setIsGrid] = useState(true);
 
-  const { searchTerm, categoryIds } = useSelector((state) => state.productFilter);
+  const { searchTerm, categoryIds, priceRange, rating } = useSelector(
+    (state) => state.productFilter,
+  );
 
   const filteredProducts = products.filter((item) => {
     const matchesCategory =
@@ -26,7 +28,12 @@ const ShopPage = () => {
     const matchesSearch =
       !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
-    return matchesCategory && matchesSearch;
+    const matchesPrice =
+      !priceRange || (item.price >= priceRange[0] && item.price <= priceRange[1]);
+
+    const matchesRating = !rating || item.rating === rating;
+
+    return matchesCategory && matchesSearch && matchesPrice && matchesRating;
   });
 
   return (
@@ -71,7 +78,7 @@ const ShopPage = () => {
 
                   <button
                     onClick={() => dispatch(resetFilters())}
-                    className="px-5 py-2 bg-black text-white rounded-lg hover:bg-gray-800 transition"
+                    className="px-5 py-2 bg-[var(--bg-orange)] text-white rounded-md hover:bg-gray-800 transition cursor-pointer"
                   >
                     Reset Filters
                   </button>

@@ -5,8 +5,14 @@ import "swiper/css/pagination";
 import { Pagination, Autoplay } from "swiper/modules";
 import { Link } from "react-router-dom";
 import categories from "../../Data/categoryData";
+import { useDispatch, useSelector } from "react-redux";
+import { setCategoryIds } from "../../features/productFilterSlice";
 
 const Categories = () => {
+  const dispatch = useDispatch();
+  const categoryIds = useSelector((state) => state.productFilter.categoryIds);
+
+  // get leaf categories
   const getLeafCategrories = (categories) => {
     let result = [];
 
@@ -42,7 +48,7 @@ const Categories = () => {
       >
         {leaftCategories.map((category) => (
           <SwiperSlide key={category.id}>
-            <Link to={`/category/${category.slug}`}>
+            <Link to={`/shop`} onClick={() => dispatch(setCategoryIds([category.id]))}>
               <div className="bg-white py-2 relative rounded-lg">
                 <img src={category.image} alt="category" />
                 <div className="absolute w-full bottom-4 text-center">

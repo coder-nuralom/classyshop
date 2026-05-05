@@ -23,6 +23,7 @@ const Header = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const categoryIds = useSelector((state) => state.productFilter.categoryIds);
   const searchTerm = useSelector((state) => state.productFilter.searchTerm);
 
   const cartItems = useSelector((state) => state.cart.cart);
@@ -30,7 +31,6 @@ const Header = () => {
 
   const [showCategoryDropdown, setShowCategoryDropdown] = useState(false);
   const [selectedCategory, setSelectedCategory] = useState("All Categories");
-  const [selectedObject, setSelectedObject] = useState(null);
 
   const categoryRef = useRef(null);
 
@@ -60,6 +60,12 @@ const Header = () => {
     e.preventDefault();
     navigate("/shop");
   };
+
+  useEffect(() => {
+    if (!categoryIds || categoryIds.length === 0) {
+      setSelectedCategory("All Categories");
+    }
+  }, [categoryIds]);
 
   // Handle dropdown close on outside click
   useEffect(() => {
@@ -120,7 +126,6 @@ const Header = () => {
                           onClick={() => {
                             setShowCategoryDropdown(false);
                             setSelectedCategory(category.name);
-                            setSelectedObject(category);
 
                             let idsToSend = null;
 
