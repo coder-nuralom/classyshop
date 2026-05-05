@@ -6,8 +6,14 @@ import { Collapse } from "react-collapse";
 import RangeSlider from "react-range-slider-input";
 import "../../node_modules/react-range-slider-input/dist/style.css";
 import categories from "../../Data/categoryData";
+import products from "../../Data/productsData";
 import { useDispatch, useSelector } from "react-redux";
-import { setCategoryIds, setPriceRange, setRating } from "../../features/productFilterSlice";
+import {
+  setBrands,
+  setCategoryIds,
+  setPriceRange,
+  setRating,
+} from "../../features/productFilterSlice";
 
 const SideBar = () => {
   const dispatch = useDispatch();
@@ -17,6 +23,7 @@ const SideBar = () => {
   const selectedBrands = useSelector((state) => state.productFilter.brands);
 
   const ratings = [5, 4, 3, 2, 1];
+  const allBrands = [...new Set(products.map((product) => product.brand))];
   const [openCategories, setOpenCategories] = useState(true);
   const [openBrand, setOpenBrand] = useState(true);
   const [openPriceRange, setOpenPriceRange] = useState(true);
@@ -50,6 +57,18 @@ const SideBar = () => {
     }
 
     dispatch(setCategoryIds(updated));
+  };
+
+  const handleBrandChange = (brand) => {
+    let updated = [];
+
+    if (selectedBrands?.includes(brand)) {
+      updated = selectedBrands.filter((item) => item !== brand);
+    } else {
+      updated = [...selectedBrands, brand];
+    }
+
+    dispatch(setBrands(updated));
   };
 
   return (
@@ -108,11 +127,17 @@ const SideBar = () => {
           <div
             className={`mt-5 pb-3 space-y-5 custom-scrollber ${[...Array(10)].length > 10 ? "max-h-100 overflow-y-auto" : "max-h-fit overflow-y-visible"}`}
           >
-            {[...Array(10)].map((_, index) => (
-              <div key={index} className="flex items-center gap-2">
-                <input id="check1" type="checkBox" className="shrink-0 w-4 h-4 text-white" />
-                <label htmlFor="check1" className="text-[15px] leading-none font-normal">
-                  Puma
+            {allBrands.map((brand, index) => (
+              <div key={brand} className="flex items-center gap-2">
+                <input
+                  id={brand}
+                  checked={selectedBrands?.includes(brand) || false}
+                  onChange={() => handleBrandChange(brand)}
+                  type="checkbox"
+                  className="shrink-0 w-4 h-4 text-white"
+                />
+                <label htmlFor={brand} className="text-[15px] leading-none font-normal">
+                  {brand}
                 </label>
               </div>
             ))}

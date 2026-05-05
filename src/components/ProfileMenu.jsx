@@ -34,7 +34,7 @@ const ProfileMenu = ({ className = "" }) => {
       <div className="w-10 h-10 rounded-full overflow-hidden flex items-center justify-center cursor-pointer">
         {isLoggedIn ? (
           <img
-            onClick={(e) => {
+            onClick={() => {
               setShowProfileMenu((prev) => !prev);
             }}
             src={profileImg}
@@ -42,7 +42,10 @@ const ProfileMenu = ({ className = "" }) => {
             className="w-full h-full object-cover"
           />
         ) : (
-          <AiOutlineUser className="text-[24px] hover:text-[var(--bg-orange)] duration-200" />
+          <AiOutlineUser
+            onClick={() => setShowProfileMenu((prev) => !prev)}
+            className="text-[24px] hover:text-[var(--bg-orange)] duration-200"
+          />
         )}
       </div>
 
@@ -101,7 +104,7 @@ const ProfileMenu = ({ className = "" }) => {
             <li onClick={() => setShowProfileMenu(false)}>
               <button
                 onClick={() => {
-                  navigate("/register");
+                  navigate("/signup");
                 }}
                 className="w-full flex items-center justify-end gap-2.5 px-3 py-2 hover:bg-gray-200 text-sm font-medium cursor-pointer"
               >

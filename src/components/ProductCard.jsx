@@ -9,10 +9,12 @@ import { BsCart2 } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../../features/cartSlice";
 import { wishlistToggle } from "../../features/wishlistSlice";
+import { toggleCompare } from "../../features/compareSlice";
 
 const ProductCard = ({ product }) => {
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state) => state.wishlist.wishlist);
+  const compareItems = useSelector((state) => state.compare.compareItems);
 
   if (!product) return null;
   const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
@@ -47,6 +49,7 @@ const ProductCard = ({ product }) => {
   }, [product?.dealEnd]);
 
   const isWishlisted = wishlistItems.find((item) => item.id === product.id);
+  const isCompared = compareItems.find((item) => item.id === product.id);
 
   return (
     <div className="shadow-sm border border-black/6 bg-white rounded-lg group h-full flex flex-col">
@@ -82,7 +85,12 @@ const ProductCard = ({ product }) => {
               <IoMdHeartEmpty />
             )}
           </button>
-          <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
+          <button
+            onClick={() => dispatch(toggleCompare(product))}
+            className={`text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200  ${
+              isCompared ? "text-orange-500" : ""
+            }`}
+          >
             <IoGitCompareOutline />
           </button>
           <button

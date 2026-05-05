@@ -26,6 +26,9 @@ import HeaderTopStrip from "./components/HeaderTopStrip";
 import MobileMenuDrawer from "./components/MobileMenuDrawer";
 import SearchModal from "./components/SearchModal";
 import OrderConfirmation from "./pages/OrderConfirmation";
+import Registration from "./pages/Auth/Registration";
+import Login from "./pages/Auth/Login";
+import ComparePage from "./pages/ComparePage";
 
 const App = () => {
   const showLogoutModal = useSelector((state) => state.logoutModal.showLogoutModal);
@@ -60,8 +63,11 @@ const App = () => {
           <Route path="/shop" element={<ShopPage />} />
           <Route path="/product/:id" element={<ProductDetails />} />
           <Route path="/cart" element={<CartPage />} />
+          <Route path="compare" element={<ComparePage />} />
           <Route path="/checkout" element={<CheckoutPage />} />
           <Route path="/order-confirmation" element={<OrderConfirmation />} />
+          <Route path="/signup" element={<Registration />} />
+          <Route path="/login" element={<Login />} />
           <Route path="/my-account" element={<UserLayout />}>
             <Route index element={<MyAccount />} />
             <Route path="orders" element={<MyOrders />} />

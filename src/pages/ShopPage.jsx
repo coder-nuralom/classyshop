@@ -17,7 +17,7 @@ const ShopPage = () => {
   const dispatch = useDispatch();
   const [isGrid, setIsGrid] = useState(true);
 
-  const { searchTerm, categoryIds, priceRange, rating } = useSelector(
+  const { searchTerm, categoryIds, brands, priceRange, rating } = useSelector(
     (state) => state.productFilter,
   );
 
@@ -28,12 +28,14 @@ const ShopPage = () => {
     const matchesSearch =
       !searchTerm || item.title.toLowerCase().includes(searchTerm.toLowerCase());
 
+    const brandMatch = !brands || brands.length === 0 || brands.includes(item.brand);
+
     const matchesPrice =
       !priceRange || (item.price >= priceRange[0] && item.price <= priceRange[1]);
 
     const matchesRating = !rating || item.rating === rating;
 
-    return matchesCategory && matchesSearch && matchesPrice && matchesRating;
+    return matchesCategory && matchesSearch && brandMatch && matchesPrice && matchesRating;
   });
 
   return (
@@ -44,7 +46,7 @@ const ShopPage = () => {
 
       <SectionWrapper className="pb-10">
         <div className="lg:flex lg:items-start lg:gap-10">
-          <div className="hidden lg:block lg:w-[20%] shrink-0 lg:sticky top-20">
+          <div className="hidden lg:block lg:w-[20%] shrink-0 lg:sticky top-20 overflow-y-auto h-[85vh]">
             <SideBar />
           </div>
 

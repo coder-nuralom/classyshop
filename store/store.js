@@ -7,6 +7,7 @@ import { mobileMenuSlice } from "../features/mobileMenuSlice";
 import { searchModalSlice } from "../features/searchModalSlice";
 import { wishlistSlice } from "../features/wishlistSlice";
 import { productFilterSlice } from "../features/productFilterSlice";
+import { compareSlice } from "../features/compareSlice";
 
 export const store = configureStore({
   reducer: {
@@ -18,5 +19,6 @@ export const store = configureStore({
     searchModal: searchModalSlice.reducer,
     wishlist: wishlistSlice.reducer,
     productFilter: productFilterSlice.reducer,
+    compare: compareSlice.reducer,
   },
 });

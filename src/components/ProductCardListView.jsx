@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import prouduct1 from "../assets/product1.webp";
 import product2 from "../assets/oval-blue-charm-bracelet-2.webp";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { FaStar } from "react-icons/fa";
 import { IoGitCompareOutline } from "react-icons/io5";
 import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
@@ -10,9 +10,12 @@ import { BsDot } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import { useDispatch, useSelector } from "react-redux";
 import { wishlistToggle } from "../../features/wishlistSlice";
+import { addListener } from "@reduxjs/toolkit";
+import { addToCart } from "../../features/cartSlice";
 const ProductCardListView = ({ product }) => {
   if (!product) return null;
 
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state) => state.wishlist.wishlist);
   const isWishlisted = wishlistItems.find((item) => item.id === product.id);
@@ -48,7 +51,7 @@ const ProductCardListView = ({ product }) => {
   return (
     <div className="shadow-sm flex items-start lg:items-center gap-7 max-[470px]:gap-5 border border-black/6 bg-white rounded-lg group p-5 max-[470px]:p-3">
       <div className="max-[510px]:h-43 max-[510px]:w-43 max-[470px]:h-35 max-[470px]:w-35 max-[360px]:w-30 h-50 w-50 md:h-70 md:w-70 overflow-hidden rounded-lg rounded-tl-lg shrink-0 relative">
-        <Link to={"/product/1"}>
+        <Link to={`/product/${product.id}`}>
           <img
             src={product.thumbnail}
             alt=""
@@ -81,7 +84,10 @@ const ProductCardListView = ({ product }) => {
           <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
             <IoGitCompareOutline />
           </button>
-          <button className="text-xl font-black w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
+          <button
+            onClick={() => dispatch(addToCart(product))}
+            className="text-xl font-black w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200"
+          >
             <BsCart2 />
           </button>
         </div>
@@ -117,7 +123,10 @@ const ProductCardListView = ({ product }) => {
           </Link>
         </h6>
         <h3 className="text-sm max-[470px]:text-[13px] mt-1.5 font-medium text-black/90">
-          <Link className="hover:text-[var(--bg-orange)] duration-200 line-clamp-2">
+          <Link
+            to={`/product/${product.id}`}
+            className="hover:text-[var(--bg-orange)] duration-200 line-clamp-2"
+          >
             {product.title}
           </Link>
         </h3>
@@ -156,7 +165,7 @@ const ProductCardListView = ({ product }) => {
           </li>
         </ul>
         <button className="flex items-center gap-2.5 bg-[var(--bg-orange)] px-4 max-[470px]:py-2 py-2.5 text-white rounded-md mt-3 cursor-pointer capitalize text-xs sm:text-[15px] font-medium hover:bg-black transition-all duration-300">
-          <FiShoppingCart className="text-base max-[360px]:hidden" />
+          <FiShoppingCart className="text-base max-[391px]:hidden" />
           Add to cart
         </button>
       </div>

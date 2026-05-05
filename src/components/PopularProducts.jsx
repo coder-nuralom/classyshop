@@ -20,15 +20,21 @@ const PopularProducts = () => {
   const scrollRef = useRef(null);
 
   const scrollLeft = () => {
-    scrollRef.current.scrollBy({
-      left: -200,
+    const el = scrollRef.current;
+    if (!el) return;
+
+    el.scrollBy({
+      left: -el.clientWidth,
       behavior: "smooth",
     });
   };
 
   const scrollRight = () => {
-    scrollRef.current.scrollBy({
-      left: 200,
+    const el = scrollRef.current;
+    if (!el) return;
+
+    el.scrollBy({
+      left: el.clientWidth,
       behavior: "smooth",
     });
   };
@@ -54,9 +60,28 @@ const PopularProducts = () => {
     setCanScrollRight(el.scrollLeft < el.scrollWidth - el.clientWidth);
   };
 
-  const [selectedCategroy, setSelectedCategroy] = useState(categories[0]?.id || "fashion");
+  const [selectedCategroy, setSelectedCategroy] = useState(categories[0] || null);
 
-  const filteredProducts = products.filter((item) => item.categroyId === selectedCategroy.id);
+  const getAllChildIdsFromTree = (category) => {
+    let ids = [];
+
+    const traverse = (categoryItem) => {
+      ids.push(categoryItem.id);
+
+      if (categoryItem.children && categoryItem.children.length > 0) {
+        categoryItem.children.forEach((child) => traverse(child));
+      }
+    };
+
+    traverse(category);
+    return ids;
+  };
+
+  const selectedCategoryIds = selectedCategroy ? getAllChildIdsFromTree(selectedCategroy) : [];
+
+  const filteredProducts = products.filter((item) =>
+    selectedCategoryIds.includes(item.categoryId),
+  );
 
   return (
     <div>
@@ -79,9 +104,9 @@ const PopularProducts = () => {
             {categories.slice(0, 3).map((item, index) => (
               <button
                 key={index}
-                onClick={() => setSelectedCategroy(item.name)}
+                onClick={() => setSelectedCategroy(item)}
                 className={`text-base md:text-lg font-medium capitalize leading-tight cursor-pointer whitespace-nowrap ${
-                  selectedCategroy === item.name ? "text-[#ff5252]" : "text-black/80"
+                  selectedCategroy?.id === item.id ? "text-[#ff5252]" : "text-black/80"
                 }`}
               >
                 {item.name}

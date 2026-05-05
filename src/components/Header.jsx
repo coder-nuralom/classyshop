@@ -170,7 +170,6 @@ const Header = () => {
               <li className="lg:hidden">
                 <ProfileMenu />
               </li>
-
               <li className="lg:hidden">
                 <Link
                   onClick={() => dispatch(toggleSearchModal())}
@@ -179,7 +178,6 @@ const Header = () => {
                   <IoSearchOutline className="text-[25px] xl:text-[28px] max-[470px]:text-[23px] hover:text-[var(--bg-orange)] duration-200" />
                 </Link>
               </li>
-
               <li className="hidden sm:block">
                 <Link to={"/compare"} className="relative group">
                   <IoGitCompareOutline className="transform rotate-90 text-[25px] xl:text-[28px] max-[470px]:text-[23px] hover:text-[var(--bg-orange)] duration-200" />
