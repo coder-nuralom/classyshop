@@ -9,14 +9,17 @@ import { IoMdHeart, IoMdHeartEmpty } from "react-icons/io";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart, updateQuantity } from "../../features/cartSlice";
 import { wishlistToggle } from "../../features/wishlistSlice";
+import { toggleCompare } from "../../features/compareSlice";
 
 const ProductMeta = ({ product }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cartItems = useSelector((state) => state.cart.cart);
   const wishlistItems = useSelector((state) => state.wishlist.wishlist);
+  const compareItems = useSelector((state) => state.compare.compareItems);
   const existingItem = cartItems.find((item) => item.id === product.id);
   const isInWishlist = wishlistItems.find((item) => item.id === product.id);
+  const isInCompare = compareItems.find((item) => item.id === product.id);
   const sizes = ["S", "M", "L", "XL"];
   const [seletedSize, setSeletedSize] = useState(null);
   const [quantity, setQuantity] = useState(1);
@@ -150,8 +153,13 @@ const ProductMeta = ({ product }) => {
           )}
           Add To Wishlist
         </button>
-        <button className="text-[15px] min-[901px]:text-sm lg:text-[15px] font-medium rounded-sm cursor-pointer flex items-center gap-2 hover:text-[var(--bg-orange)]">
-          <IoGitCompareOutline className="text-base" />
+        <button
+          onClick={() => dispatch(toggleCompare(product))}
+          className="text-[15px] min-[901px]:text-sm lg:text-[15px] font-medium rounded-sm cursor-pointer flex items-center gap-2 hover:text-[var(--bg-orange)]"
+        >
+          <IoGitCompareOutline
+            className={`text-base ${isInCompare ? "text-[var(--bg-orange)]" : ""}`}
+          />
           Add To Compare
         </button>
       </div>
