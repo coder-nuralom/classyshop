@@ -1,16 +1,60 @@
-# React + Vite
+🛒 Modern React eCommerce Frontend:
+A fully responsive, feature-rich eCommerce frontend built with React and Tailwind CSS. This project focuses on clean architecture, scalability, and real-world UI/UX patterns. It is designed to be API-ready, making backend integration seamless.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+🚀 Live Demo:
+👉 https://classyshop-ten.vercel.app/
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-## React Compiler
+📌 Features:
+🛍️ Core eCommerce Features
+   Product listing page
+   Product details page
+   Add to cart
+   Wishlist functionality
+   Compare products
+   Checkout flow
+   Order confirmation page
+   
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+🔍 Advanced Filtering & Search:
+     Filter by category (child / sub / grandchild)
+     Filter by price
+     Filter by brand
+     Filter by rating
+     Search functionality
 
-## Expanding the ESLint configuration
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+👤 User Features:
+     Login page (UI)
+     Registration page (UI)
+
+
+⚙️ State Management:
+     Redux Toolkit used for global state
+     Cart state
+     Wishlist state
+     Compare state
+
+
+🧱 Tech Stack
+    ⚛️ React
+    🎨 Tailwind CSS
+    🧠 Redux Toolkit
+    🔗 React Router
+
+
+💡 Future Improvements:
+     API integration
+     Authentication system
+     Payment gateway integration
+     Backend (Node.js / Firebase)
+
+📧 Contact:
+If you want to collaborate or hire me:
+  GitHub: https://github.com/coder-nuralom
+  LinkedIn: https://www.linkedin.com/in/md-nuralom-khan-74053625a/
+
+
+⭐ Support
+If you like this project, please give it a ⭐ on GitHub!
