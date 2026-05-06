@@ -1,6 +1,9 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 const BreadCumbs = ({ className }) => {
+  const location = useLocation();
+  const pathNames = location.pathname.split("/").filter(Boolean);
+
   return (
     <div className={`bg-gray-100 py-4 sm:py-6 md:py-7 rounded-md  ${className}`}>
       <div className="container mx-auto px-4 max-[450px]:px-2 sm:px-6 text-sm flex items-center flex-wrap gap-1 text-xs sm:text-sm md:text-[15px]">

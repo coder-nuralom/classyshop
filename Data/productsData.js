@@ -64,7 +64,7 @@ const products = [
     isFeatured: true,
     isBestSelling: true,
     isLatest: true,
-    stock: 45,
+    stock: 10,
     categoryId: 911, // Sneaker Shoes
     thumbnail:
       "https://enseig.com/46-home_default/nike-air-gold-pink-v-series-cast-and-crew-shoes.jpg",
