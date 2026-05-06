@@ -12,13 +12,18 @@ import { useDispatch, useSelector } from "react-redux";
 import { wishlistToggle } from "../../features/wishlistSlice";
 import { addListener } from "@reduxjs/toolkit";
 import { addToCart } from "../../features/cartSlice";
+import { toggleCompare } from "../../features/compareSlice";
+
 const ProductCardListView = ({ product }) => {
   if (!product) return null;
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const wishlistItems = useSelector((state) => state.wishlist.wishlist);
+  const compareItems = useSelector((state) => state.compare.compareItems);
+
   const isWishlisted = wishlistItems.find((item) => item.id === product.id);
+  const isCompared = compareItems.find((item) => item.id === product.id);
 
   const offerEndDate = product?.dealEnd ? new Date(product.dealEnd) : null;
   const [timeLeft, setTimeLeft] = useState(null);
@@ -81,8 +86,13 @@ const ProductCardListView = ({ product }) => {
               <IoMdHeartEmpty />
             )}
           </button>
-          <button className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200">
-            <IoGitCompareOutline />
+          <button
+            onClick={() => dispatch(toggleCompare(product))}
+            className="text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200"
+          >
+            <IoGitCompareOutline
+              className={`${isCompared ? "text-[var(--bg-orange)]" : ""}`}
+            />
           </button>
           <button
             onClick={() => dispatch(addToCart(product))}

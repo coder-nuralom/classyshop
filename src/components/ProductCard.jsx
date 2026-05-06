@@ -88,7 +88,7 @@ const ProductCard = ({ product }) => {
           <button
             onClick={() => dispatch(toggleCompare(product))}
             className={`text-xl font-normal w-6 h-8.5 flex items-center justify-center border-b border-black/13 cursor-pointer hover:text-[var(--bg-orange)] duration-200  ${
-              isCompared ? "text-orange-500" : ""
+              isCompared ? "text-[var(--bg-orange)]" : ""
             }`}
           >
             <IoGitCompareOutline />

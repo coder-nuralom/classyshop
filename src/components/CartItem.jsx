@@ -5,8 +5,10 @@ import { HiPlus } from "react-icons/hi";
 import { RxCross2 } from "react-icons/rx";
 import { useDispatch } from "react-redux";
 import { removeFromCart, updateQuantity } from "../../features/cartSlice";
+import { useNavigate } from "react-router-dom";
 
 const CartItem = ({ product }) => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const handleQty = (newQty) => {
     dispatch(updateQuantity({ id: product.id, quantity: newQty }));
@@ -15,12 +17,18 @@ const CartItem = ({ product }) => {
     <div className="border border-black/10 p-3 sm:p-4 rounded-xl transition duration-300 flex flex-col min-[785px]:flex-row min-[1024px]:flex-col min-[1150px]:flex-row items-center justify-between shadow-sm space-y-3">
       <div className="image_area w-full flex items-center max-[375px]:items-start gap-4">
         <img
+          onClick={() => navigate(`/product/${product.id}`)}
           src={product.thumbnail}
           alt={"Product Image"}
-          className="w-25 h-25 max-[375px]:w-23 max-[375px]:h-23 object-cover object-center rounded-lg border-2 border-gray-700 flex-shrink-0"
+          className="w-25 h-25 max-[375px]:w-23 max-[375px]:h-23 object-cover object-center rounded-lg border-2 border-gray-700 flex-shrink-0 cursor-pointer"
         />
         <div>
-          <h3 className="text-sm sm:text-[15px] font-medium mb-1">{product.title}</h3>
+          <h3
+            onClick={() => navigate(`/product/${product.id}`)}
+            className="text-sm sm:text-[15px] font-medium mb-1 cursor-pointer"
+          >
+            {product.title}
+          </h3>
           <p className="text-sm sm:text-[15px] text-[var(--bg-orange)] font-semibold tracking-wide mb-1">
             ${product.price.toFixed(2)}
           </p>
